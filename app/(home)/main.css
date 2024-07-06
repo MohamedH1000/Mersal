@@ -1,0 +1,5 @@
+.main-background {
+  background: url("/assets/mainbackground.jpg") no-repeat center center/cover;
+  height: 700px;
+  background-attachment: fixed;
+}
