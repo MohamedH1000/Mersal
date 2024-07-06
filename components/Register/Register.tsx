@@ -44,7 +44,7 @@ const Register = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.1 }}
       viewport={{ once: true }}
-      className="mt-20"
+      className="mt-[140px] mb-[20px]"
     >
       <h1 className="text-[36px] font-bold max-sm:text-[30px]">
         اهلا بك في مرسال
