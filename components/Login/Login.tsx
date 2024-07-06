@@ -7,6 +7,8 @@ import Link from "next/link";
 import { useToast } from "../ui/use-toast";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { CircularProgress } from "@mui/material";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
   const router = useRouter();
@@ -30,7 +32,7 @@ const Register = () => {
           toast({
             title: "تم تسجيل دخول بنجاح",
           });
-          router.push("/");
+          router.refresh();
         }
 
         if (callback?.error) {
@@ -79,11 +81,30 @@ const Register = () => {
         />
         <Button
           className={`text-white bg-[#bda069] text-[20px] 
-          px-10 rounded-3xl font-bold py-3 mt-5`}
+          px-10 rounded-3xl font-bold py-3 mt-5 w-full`}
           type="submit"
           disabled={isLoading ? true : false}
         >
           {isLoading ? "جاري التسجيل" : "تسجيل الدخول"}
+        </Button>
+        <Button
+          className={`${
+            isLoading
+              ? "flex justify-center items-center h-[50px]"
+              : "text-[20px] text-[black] border-[black] border-[1px]"
+          } bg-[white] px-10 rounded-3xl hover:text-white
+          font-bold py-3 mt-5 w-full max-sm:text-[12px]`}
+          disabled={isLoading ? true : false}
+          onClick={() => signIn("google")}
+        >
+          {isLoading ? (
+            <CircularProgress color="inherit" />
+          ) : (
+            <div className="flex justify-center items-center gap-3">
+              <FcGoogle />
+              قم بتسجيل الدخول باستخدام جوجل
+            </div>
+          )}
         </Button>
         <div className="mt-4 flex justify-center items-center gap-3">
           <p>ليس لديك حساب ؟</p>

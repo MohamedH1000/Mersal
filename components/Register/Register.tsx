@@ -8,6 +8,8 @@ import { createUser } from "@/lib/action/user.action";
 import { useToast } from "../ui/use-toast";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
 
 const Register = () => {
   const router = useRouter();
@@ -83,11 +85,30 @@ const Register = () => {
               ? "flex justify-center items-center h-[50px]"
               : "text-[20px] text-white"
           } bg-[#bda069] px-10 rounded-3xl 
-          font-bold py-3 mt-5`}
+          font-bold py-3 mt-5 w-full`}
           type="submit"
           disabled={isLoading ? true : false}
         >
           {isLoading ? <CircularProgress color="inherit" /> : "تسجيل حساب"}
+        </Button>
+        <Button
+          className={`${
+            isLoading
+              ? "flex justify-center items-center h-[50px]"
+              : "text-[20px] text-[black] border-[black] border-[1px]"
+          } bg-[white] px-10 rounded-3xl hover:text-white
+          font-bold py-3 mt-5 w-full max-sm:text-[12px]`}
+          disabled={isLoading ? true : false}
+          onClick={() => signIn("google")}
+        >
+          {isLoading ? (
+            <CircularProgress color="inherit" />
+          ) : (
+            <div className="flex justify-center items-center gap-3">
+              <FcGoogle />
+              قم بتسجيل الدخول باستخدام جوجل
+            </div>
+          )}
         </Button>
         <div className="mt-4 flex justify-center items-center gap-3">
           <p>لديك حساب ؟</p>
