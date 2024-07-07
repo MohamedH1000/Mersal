@@ -14,12 +14,14 @@ const Register = () => {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    if (isLoading) return;
     setIsLoading(true);
     try {
       signIn("credentials", {
@@ -46,6 +48,13 @@ const Register = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const signInGoogle = () => {
+    if (googleLoading) return;
+
+    setGoogleLoading(true);
+    signIn("google").finally(() => setGoogleLoading(false));
   };
   return (
     <motion.div
@@ -90,15 +99,15 @@ const Register = () => {
         </Button>
         <Button
           className={`${
-            isLoading
+            googleLoading
               ? "flex justify-center items-center h-[50px]"
               : "text-[20px] text-[black] border-[black] border-[1px]"
           } bg-[white] px-10 rounded-3xl hover:text-white
           font-bold py-3 mt-5 w-full max-sm:text-[12px]`}
-          disabled={isLoading ? true : false}
-          onClick={() => signIn("google")}
+          disabled={googleLoading ? true : false}
+          onClick={signInGoogle}
         >
-          {isLoading ? (
+          {googleLoading ? (
             <CircularProgress color="inherit" />
           ) : (
             <div className="flex justify-center items-center gap-3">

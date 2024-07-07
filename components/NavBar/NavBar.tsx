@@ -14,12 +14,10 @@ import {
   MenubarItem,
   MenubarMenu,
   MenubarSeparator,
-  MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { signOut } from "next-auth/react";
 import { useToast } from "../ui/use-toast";
-import { title } from "process";
 
 const outfit = Outfit({
   subsets: ["latin"],

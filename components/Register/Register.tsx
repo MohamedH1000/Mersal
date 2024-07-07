@@ -15,11 +15,13 @@ const Register = () => {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [registerData, setRegisterData] = useState({
     email: "",
     name: "",
     password: "",
   });
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
@@ -28,15 +30,31 @@ const Register = () => {
       toast({
         title: "تم انشاء الحساب بنجاح",
       });
-      router.push("/");
+      const loginData = {
+        email: registerData.email,
+        password: registerData.password,
+      };
+      signIn("credentials", {
+        ...loginData,
+        redirect: false,
+      }).then((callback) => {
+        setIsLoading(false);
+        if (callback?.ok) {
+          router.refresh();
+        }
+      });
     } catch (error) {
       console.log(error);
       toast({
         title: "مشكلة في انشاء المستخدم",
       });
-    } finally {
-      setIsLoading(false);
     }
+  };
+  const signUpGoogle = () => {
+    if (googleLoading) return;
+
+    setGoogleLoading(true);
+    signIn("google").finally(() => setGoogleLoading(false));
   };
   return (
     <motion.div
@@ -93,15 +111,15 @@ const Register = () => {
         </Button>
         <Button
           className={`${
-            isLoading
+            googleLoading
               ? "flex justify-center items-center h-[50px]"
               : "text-[20px] text-[black] border-[black] border-[1px]"
           } bg-[white] px-10 rounded-3xl hover:text-white
           font-bold py-3 mt-5 w-full max-sm:text-[12px]`}
-          disabled={isLoading ? true : false}
-          onClick={() => signIn("google")}
+          disabled={googleLoading ? true : false}
+          onClick={signUpGoogle}
         >
-          {isLoading ? (
+          {googleLoading ? (
             <CircularProgress color="inherit" />
           ) : (
             <div className="flex justify-center items-center gap-3">
