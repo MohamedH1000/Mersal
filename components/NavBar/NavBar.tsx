@@ -144,11 +144,17 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                     </Avatar>
                   </MenubarTrigger>
                   <MenubarContent>
-                    <MenubarItem className="cursor-pointer">حسابي</MenubarItem>
+                    <Link href={`/my-profile/${currentUser?.id}`}>
+                      <MenubarItem className="cursor-pointer">
+                        حسابي
+                      </MenubarItem>
+                    </Link>
                     <MenubarSeparator />
-                    <MenubarItem className="cursor-pointer">
-                      حجوزاتي
-                    </MenubarItem>
+                    <Link href={`/reservation/${currentUser.id}`}>
+                      <MenubarItem className="cursor-pointer">
+                        حجوزاتي
+                      </MenubarItem>
+                    </Link>
                     <MenubarSeparator />
                     <MenubarItem
                       className="cursor-pointer"

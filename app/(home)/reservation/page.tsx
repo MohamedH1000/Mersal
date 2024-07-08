@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const page = () => {
@@ -34,12 +35,14 @@ const page = () => {
           transition={{ duration: 0.2, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <Button
-            className="bg-white text-black rounded-3xl font-bold
-          w-[164px] h-[56px] mt-5 text-[20px] border-[black] border-[1px]"
-          >
-            احجز الان
-          </Button>
+          <Link href={"/reservation/system"}>
+            <Button
+              className="bg-white text-black rounded-3xl font-bold hover:text-white transition
+            w-[164px] h-[56px] mt-5 text-[20px] border-[black] border-[1px] duration-300"
+            >
+              احجز الان
+            </Button>
+          </Link>
         </motion.div>
       </div>
       <div
