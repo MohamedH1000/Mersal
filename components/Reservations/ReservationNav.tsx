@@ -50,7 +50,7 @@ flex justify-between items-center rounded-md max-lg:flex-col max-lg:h-auto"
                 {arriveDate ? (
                   format(arriveDate, "PPP")
                 ) : (
-                  <span>Pick a date</span>
+                  <span>اختر معاد الوصول</span>
                 )}
               </Button>
             </PopoverTrigger>
@@ -79,7 +79,7 @@ flex justify-between items-center rounded-md max-lg:flex-col max-lg:h-auto"
                 {leaveDate ? (
                   format(leaveDate, "PPP")
                 ) : (
-                  <span>Pick a date</span>
+                  <span>اختر معاد المغادرة</span>
                 )}
               </Button>
             </PopoverTrigger>
