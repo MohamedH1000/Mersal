@@ -32,7 +32,7 @@ const ReservationNav = () => {
         animate={{ y: 0, opacity: 100 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         className="w-full mt-[20px] bg-[white] h-[200px] border-[#bda069] cursor-pointer
-max-md:w-[500px] max-sm:w-[250px] px-5 py-2 border-[1px] 
+max-md:w-[500px] max-sm:w-full px-5 py-2 border-[1px] shadow-lg 
 flex justify-between items-center rounded-md max-lg:flex-col max-lg:h-auto"
       >
         <div className="flex flex-col gap-3">

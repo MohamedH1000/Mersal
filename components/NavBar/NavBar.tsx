@@ -144,6 +144,14 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                     </Avatar>
                   </MenubarTrigger>
                   <MenubarContent>
+                    {currentUser?.role === "admin" && (
+                      <Link href={`/addchalet`}>
+                        <MenubarItem className="cursor-pointer">
+                          قم باضافة شاليه
+                        </MenubarItem>
+                      </Link>
+                    )}
+                    <MenubarSeparator />
                     <Link href={`/my-profile/${currentUser?.id}`}>
                       <MenubarItem className="cursor-pointer">
                         حسابي
