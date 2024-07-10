@@ -14,13 +14,16 @@ import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { createChalet } from "@/lib/action/chalet.action";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 const AddChaletDialog = ({ currentUser }: any) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [chaletDetails, setChaletDetails] = useState({
+  const [chaletDetails, setChaletDetails] = useState<any>({
     bathroomCount: null,
     guestCount: null,
     price: null,
@@ -28,6 +31,7 @@ const AddChaletDialog = ({ currentUser }: any) => {
     imageSrc: "",
     description: "",
     title: "",
+    pathname,
   });
   if (currentUser?.role !== "admin") router.push("/");
   const clear = () => {
@@ -63,16 +67,31 @@ const AddChaletDialog = ({ currentUser }: any) => {
   };
   return (
     <>
-      <h1 className="text-[40px] font-medium">قم باضافة الشاليه الخاص بك</h1>
+      <motion.h1
+        className="text-[40px] font-medium"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 100, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.2 }}
+      >
+        قم باضافة الشاليه الخاص بك
+      </motion.h1>
       <div>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger
-            className="mt-20 bg-[#bda069] text-white hover:text-[#bda069] 
-          hover:bg-white border-[#bda069] hover:border-[1px] 
-          rounded-full transition duration-300 p-4 text-[20px] font-medium"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 100, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.2 }}
           >
-            ابدا الان
-          </DialogTrigger>
+            <DialogTrigger
+              className="mt-20 bg-[#bda069] text-white hover:text-[#bda069]
+            hover:bg-white border-[#bda069] hover:border-[1px]
+            rounded-full transition duration-300 p-4 text-[20px] font-medium"
+            >
+              ابدا الان
+            </DialogTrigger>
+          </motion.div>
           <DialogContent dir="ltr" className="h-[600px] overflow-y-auto">
             <DialogHeader>
               <DialogTitle className="text-center">
