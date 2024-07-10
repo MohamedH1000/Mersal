@@ -54,6 +54,17 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
           >
             الرئيسية
           </Link>
+          {currentUser?.role === "admin" && (
+            <Link
+              href={"/addchalet"}
+              className={`${
+                pathname === "/reservation" ? "border-b-[2px] border-black" : ""
+              }hover:border-b-[2px] border-black`}
+              onClick={() => setOpen((prev: any) => !prev)}
+            >
+              قم بإضافة شاليه
+            </Link>
+          )}
           <Link
             href={"/reservation"}
             className={`${
