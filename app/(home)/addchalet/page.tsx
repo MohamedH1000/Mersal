@@ -13,7 +13,7 @@ const page = async () => {
   return (
     <div
       className="min-h-screen mt-[130px] px-20 max-md:px-5 
-    flex flex-col max-md:items-center"
+    flex flex-col max-md:items-center w-full"
     >
       <AddChaletDialog currentUser={currentUser} />
       {isEmpty ? (
@@ -21,7 +21,10 @@ const page = async () => {
           <EmptyState />
         </div>
       ) : (
-        <div className="mt-10 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8">
+        <div
+          className="mt-10 grid gap-8 w-full lg:grid-cols-4 
+        max-md:grid-cols-2 max-sm:grid-cols-1 md:grid-cols-2 mb-10"
+        >
           {allChalets?.map((chalet: any, i) => {
             return (
               <ListingCard data={chalet} key={i} currentUser={currentUser} />
