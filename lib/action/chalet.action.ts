@@ -1,7 +1,6 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "./user.action";
-import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 
 export async function createChalet(params: any) {
@@ -50,13 +49,39 @@ export async function getAllChalets() {
   }
 }
 
-export async function addToFavourite({ params }: any) {
+export async function getChaletById(params: any) {
+  try {
+    const { listingId } = params;
+    const listing = await prisma.listing.findUnique({
+      where: {
+        id: listingId,
+      },
+      include: {
+        user: true,
+      },
+    });
+    if (!listing) return null;
+
+    return {
+      ...listing,
+      createdAt: listing.createdAt.toISOString(),
+      user: {
+        ...listing.user,
+        createdAt: listing.user.createdAt.toISOString(),
+        updatedAt: listing.user.updatedAt.toISOString(),
+        emailVerified: listing.user.emailVerified?.toISOString() || null,
+      },
+    };
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+
+export async function addToFavourite(params: any) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return NextResponse.json({
-      error: "يجب ان تسجل دخولك قبل ان تضيف للمفضلة",
-    });
+    throw new Error("يجب ان تسجل دخولك قبل ان تضيف للمفضلة");
   }
 
   const { listingId } = params;
@@ -74,14 +99,14 @@ export async function addToFavourite({ params }: any) {
       id: currentUser.id,
     },
     data: {
-      favouriteIds,
+      favoriteIds: favouriteIds,
     },
   });
 
-  return NextResponse.json(user);
+  return user;
 }
 
-export async function deleteFromFavourite({ params }: any) {
+export async function deleteFromFavourite(params: any) {
   const currentUser = await getCurrentUser();
 
   const { listingId } = params;
@@ -91,7 +116,7 @@ export async function deleteFromFavourite({ params }: any) {
   }
 
   if (!currentUser) {
-    return NextRequest.json({ error: "يجب ان تسجل دخولك للحذف من المفضلة" });
+    throw new Error("يجب ان تسجل دخولك للحذف من المفضلة");
   }
 
   let favouriteIds = [...(currentUser.favoriteIds || [])];
@@ -103,8 +128,8 @@ export async function deleteFromFavourite({ params }: any) {
       id: currentUser.id,
     },
     data: {
-      favoriteIds,
+      favoriteIds: favouriteIds,
     },
   });
-  return NextResponse.json(user);
+  return user;
 }

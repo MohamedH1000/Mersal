@@ -23,7 +23,9 @@ const page = async () => {
       ) : (
         <div className="mt-10 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-8">
           {allChalets?.map((chalet: any, i) => {
-            return <ListingCard data={chalet} key={i} />;
+            return (
+              <ListingCard data={chalet} key={i} currentUser={currentUser} />
+            );
           })}
         </div>
       )}
