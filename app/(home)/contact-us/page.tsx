@@ -8,7 +8,7 @@ const page = () => {
   return (
     <div className="mt-[180px] mb-10">
       <div
-        className="flex items-start justify-evenly max-md:flex-col
+        className="flex items-start justify-between max-md:flex-col px-[150px] gap-10
       max-md:items-center max-md:gap-6 max-md:px-5 mb-[200px] max-md:items-center max-md:text-center"
       >
         <motion.div

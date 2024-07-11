@@ -12,7 +12,7 @@ const page = async () => {
 
   return (
     <div
-      className="min-h-screen mt-[130px] px-20 max-md:px-5 
+      className="min-h-screen mt-[130px] px-[150px] max-md:px-5 
     flex flex-col max-md:items-center w-full"
     >
       <AddChaletDialog currentUser={currentUser} />

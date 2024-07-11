@@ -48,14 +48,14 @@ const NavBar = ({ currentUser }: NavbarProps) => {
   return (
     <header
       className={`h-[130px] w-full flex justify-between 
-      px-20 py-6 max-md:px-4 max-md:py-4 ${
+      px-[150px] py-6 max-md:px-4 max-md:py-4 ${
         isScrolled ? "shadow-lg duration-300" : "duration-300"
       }
     fixed top-0 z-10 bg-[#FFFFFF] items-center ${outfit.className}`}
     >
       <nav
         className="flex justify-center items-center
-      gap-10 max-md:hidden text-[17px]"
+      gap-10 max-lg:hidden text-[17px]"
       >
         <motion.div
           initial={{ opacity: 0, x: 10 }}

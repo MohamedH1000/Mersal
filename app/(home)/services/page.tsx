@@ -54,7 +54,7 @@ const page = () => {
     <div className="min-h-screen mt-[170px] ">
       <div
         dir="ltr"
-        className="flex justify-between items-start px-[190px] max-md:px-5 max-md:flex-col max-md:gap-4"
+        className="flex justify-between items-start px-[150px] max-md:px-5 max-md:flex-col max-md:gap-4"
       >
         <div>
           <p>{products.length} products</p>
@@ -79,7 +79,7 @@ const page = () => {
       </div>
       <motion.div
         className="grid grid-cols-4 justify-items-center
-          gap-2 mt-10 w-full mb-10 px-[190px]
+          gap-2 mt-10 w-full mb-10 px-[150px]
           max-md:px-5 max-lg:grid-cols-2 max-sm:grid-cols-1"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
