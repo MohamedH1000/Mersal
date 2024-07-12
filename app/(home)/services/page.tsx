@@ -98,11 +98,7 @@ const page = () => {
               />
             </Link>
             <p className="font-bold text-[20px] mt-5">{product.name}</p>
-            {product.stock === 0 ? (
-              <p className="opacity-70">Sold Out</p>
-            ) : (
-              <p>SR{product.price}</p>
-            )}
+            <p>SR{product.price}</p>
           </div>
         ))}
       </motion.div>
