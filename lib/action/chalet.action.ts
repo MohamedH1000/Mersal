@@ -64,12 +64,12 @@ export async function getChaletById(params: any) {
 
     return {
       ...listing,
-      createdAt: listing.createdAt.toISOString(),
+      createdAt: listing?.createdAt.toISOString(),
       user: {
-        ...listing.user,
-        createdAt: listing.user.createdAt.toISOString(),
-        updatedAt: listing.user.updatedAt.toISOString(),
-        emailVerified: listing.user.emailVerified?.toISOString() || null,
+        ...listing?.user,
+        createdAt: listing?.user?.createdAt.toISOString(),
+        updatedAt: listing?.user?.updatedAt.toISOString(),
+        emailVerified: listing?.user?.emailVerified?.toISOString() || null,
       },
     };
   } catch (error: any) {
