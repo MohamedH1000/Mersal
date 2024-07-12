@@ -188,6 +188,7 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                         signOut();
                         toast({
                           title: "تم تسجيل الخروج بنجاح",
+                          className: "bg-[green] text-white",
                         });
                       }}
                     >

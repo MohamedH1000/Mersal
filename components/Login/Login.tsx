@@ -53,7 +53,9 @@ const Login = () => {
   const signInGoogle = () => {
     setGoogleLoading(true);
     try {
-      signIn("google").finally(() => setGoogleLoading(false));
+      signIn("google").finally(() => {
+        setGoogleLoading(false);
+      });
     } catch (error: any) {
       console.log(error);
     }

@@ -109,7 +109,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
                 {actionLabel}
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent dir="rtl" className="flex flex-col items-start">
+            <AlertDialogContent
+              dir="rtl"
+              className="flex flex-col items-start rounded-md"
+            >
               <AlertDialogHeader dir="rtl">
                 <AlertDialogTitle className="text-start">
                   {actionLabel === "قم بحذف الشاليه" &&
@@ -122,7 +125,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     "هذه العملية لا يمكن ارجاعها وسيتم حذف جميع الحجوزات المرتبطه بهذا الشاليه"}
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <AlertDialogFooter className="gap-3">
+              <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
                 <AlertDialogAction onClick={handleCancel}>
                   تاكيد
                 </AlertDialogAction>

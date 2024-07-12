@@ -24,12 +24,14 @@ const TripsClient: React.FC<TripClientProps> = ({
         await deleteReservation({ reservationId: id });
         toast({
           title: "تم الغاء الحجز بنجاح",
+          className: "bg-[green] text-white",
         });
         router.refresh();
       } catch (error) {
         console.log(error);
         toast({
           title: "حدث خطا اثناء الغاء الحجز",
+          className: "bg-[red] text-white",
         });
       } finally {
         setDeleteId("");

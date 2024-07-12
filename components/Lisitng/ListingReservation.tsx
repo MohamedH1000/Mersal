@@ -229,18 +229,66 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               <AlertDialogTitle className="text-start">
                 بيانات الحجز
               </AlertDialogTitle>
-              <AlertDialogDescription className="flex justify-between items-center gap-5">
-                <div>
-                  <h1>:من تاريخ</h1>
-                  <p>{dateRange?.startDate?.toString()}</p>
+              <AlertDialogDescription>
+                <div className="flex justify-between items-center gap-5">
+                  <div>
+                    <h1>:من تاريخ</h1>
+                    <p>{dateRange?.startDate?.toString()}</p>
+                  </div>
+                  <div>
+                    <h1>الى تاريخ:</h1>
+                    <p>{dateRange?.endDate?.toString()}</p>
+                  </div>
                 </div>
-                <div>
-                  <h1>الى تاريخ:</h1>
-                  <p>{dateRange?.endDate?.toString()}</p>
+                <Separator className="mt-5" />
+                <div className="flex flex-col items-start w-full">
+                  <div className="flex justify-between items-center w-full mt-2">
+                    {servicePrice.chairPrice > 0 && (
+                      <>
+                        <h1>كراسي حفلات</h1>
+                        <p>{servicePrice.chairPrice * 200} SAR</p>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center w-full mt-2">
+                    {servicePrice.coffeePrice > 0 && (
+                      <>
+                        <h1>ضيافة قهوة</h1>
+                        <p>{servicePrice.coffeePrice * 250} SAR</p>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center w-full mt-2">
+                    {servicePrice.sweetPrice > 0 && (
+                      <>
+                        <h1>ضيافة حلى</h1>
+                        <p>{servicePrice.sweetPrice * 150} SAR</p>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center w-full mt-2">
+                    {servicePrice.tablePrice > 0 && (
+                      <>
+                        <h1>سفرة طعام</h1>
+                        <p>{servicePrice.tablePrice * 100} SAR</p>
+                      </>
+                    )}
+                  </div>
+                  {servicePrice.chairPrice === 0 &&
+                    servicePrice.sweetPrice === 0 &&
+                    servicePrice.tablePrice === 0 &&
+                    servicePrice.coffeePrice === 0 && (
+                      <div className="mb-5">لم يتم اضافة خدمات اضافية</div>
+                    )}
+                  <Separator />
+                  <div className="mt-5 flex justify-between items-center w-full">
+                    <h1>المجموع</h1>
+                    <p>{totalPrice} SAR</p>
+                  </div>
                 </div>
               </AlertDialogDescription>
             </AlertDialogHeader>
-            <AlertDialogFooter className="gap-5">
+            <AlertDialogFooter className="gap-5 max-md:flex-col max-md:gap-2 rounded-md">
               <AlertDialogAction onClick={onSubmit}>تاكيد</AlertDialogAction>
               <AlertDialogCancel>الغاء</AlertDialogCancel>
             </AlertDialogFooter>
