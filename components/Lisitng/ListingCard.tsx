@@ -9,7 +9,7 @@ import HeartButton from "./HeartButton";
 import { motion } from "framer-motion";
 interface ListingCardProps {
   data: Listing;
-  reservation?: Reservation;
+  reservation?: Reservation | any;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -89,9 +89,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
         {onAction && actionLabel && (
           <Button
             disabled={disabled}
-            label={actionLabel}
             onClick={handleCancel}
-          />
+            className="bg-[#bda069] text-white border-[#bda069]
+          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+          >
+            {actionLabel}
+          </Button>
         )}
       </div>
     </motion.div>

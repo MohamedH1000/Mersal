@@ -10,11 +10,15 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useRouter } from "next/navigation";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { AlertCircle } from "lucide-react";
+import { Prisma } from "@prisma/client";
 
 const Register = () => {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [googleLoading, setGoogleLoading] = useState(false);
   const [registerData, setRegisterData] = useState({
     email: "",
@@ -24,6 +28,7 @@ const Register = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setError("");
     try {
       setIsLoading(true);
       await createUser(registerData);
@@ -43,11 +48,15 @@ const Register = () => {
           router.refresh();
         }
       });
-    } catch (error) {
+    } catch (error: any) {
+      setError(error);
       console.log(error);
       toast({
         title: "مشكلة في انشاء المستخدم",
+        description: "برجاء التاكد من البيانات",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
   const signUpGoogle = () => {
@@ -72,6 +81,13 @@ const Register = () => {
         onSubmit={handleSubmit}
         className="flex flex-col items-start justify-center gap-4 w-[700px] mt-10 max-md:w-[500px] max-sm:w-[250px]"
       >
+        {/* {error && (
+          <Alert variant="destructive">
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )} */}
         <label htmlFor="email">الايميل</label>
         <Input
           name="email"

@@ -8,7 +8,7 @@ import { Button } from "../ui/button";
 const ReservationPage = () => {
   return (
     <>
-      <div className="mt-20 flex flex-col items-center">
+      <div className="mt-20 flex flex-col items-center w-full">
         <motion.h1
           className="font-bold text-[50px] max-md:text-[30px] max-sm:text-[30px]"
           initial={{ opacity: 0, y: 10 }}
@@ -47,7 +47,7 @@ const ReservationPage = () => {
       </div>
       <div
         className="mt-20 flex justify-center items-start gap-3 flex-wrap
-max-sm:flex-col max-sm:items-center max-md:px-5"
+max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
       >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -61,8 +61,8 @@ max-sm:flex-col max-sm:items-center max-md:px-5"
             width={400}
             height={416}
             className="rounded-3xl w-[400px]
-      h-[416px] max-sm:w-[250px]
-      max-sm:h-[224px]"
+      h-[416px] max-sm:w-auto
+      max-sm:h-auto"
           />
         </motion.div>
         <motion.div
@@ -76,9 +76,9 @@ max-sm:flex-col max-sm:items-center max-md:px-5"
             alt="1"
             width={400}
             height={416}
-            className="rounded-3xl w-[400px] 
-    h-[416px] max-sm:w-[250px]
-    max-sm:h-[224px]"
+            className="rounded-3xl w-[400px]
+            h-[416px] max-sm:w-auto
+            max-sm:h-auto"
           />
         </motion.div>
         <motion.div
@@ -92,9 +92,9 @@ max-sm:flex-col max-sm:items-center max-md:px-5"
             alt="1"
             width={400}
             height={416}
-            className="rounded-3xl w-[400px] 
-  h-[416px] max-sm:w-[250px]
-  max-sm:h-[224px]"
+            className="rounded-3xl w-[400px]
+            h-[416px] max-sm:w-auto
+            max-sm:h-auto"
           />
         </motion.div>
 
@@ -110,9 +110,9 @@ max-sm:flex-col max-sm:items-center max-md:px-5"
             alt="1"
             width={400}
             height={416}
-            className="rounded-3xl w-[400px] 
-  h-[416px] max-sm:w-[250px]
-  max-sm:h-[224px]"
+            className="rounded-3xl w-[400px]
+            h-[416px] max-sm:w-auto
+            max-sm:h-auto"
           />
         </motion.div>
 
@@ -128,9 +128,9 @@ max-sm:flex-col max-sm:items-center max-md:px-5"
             alt="1"
             width={400}
             height={416}
-            className="rounded-3xl w-[400px] 
-  h-[416px] max-sm:w-[250px]
-  max-sm:h-[224px]"
+            className="rounded-3xl w-[400px]
+            h-[416px] max-sm:w-auto
+            max-sm:h-auto"
           />
         </motion.div>
 
@@ -146,9 +146,9 @@ max-sm:flex-col max-sm:items-center max-md:px-5"
             alt="1"
             width={400}
             height={416}
-            className="rounded-3xl w-[400px] 
-  h-[416px] max-sm:w-[250px]
-  max-sm:h-[224px]"
+            className="rounded-3xl w-[400px]
+            h-[416px] max-sm:w-auto
+            max-sm:h-auto"
           />
         </motion.div>
 
@@ -163,9 +163,9 @@ max-sm:flex-col max-sm:items-center max-md:px-5"
             alt="1"
             width={400}
             height={416}
-            className="rounded-3xl w-[400px] 
-  h-[416px] max-sm:w-[250px]
-  max-sm:h-[224px]"
+            className="rounded-3xl w-[400px]
+            h-[416px] max-sm:w-auto
+            max-sm:h-auto"
           />
         </motion.div>
       </div>

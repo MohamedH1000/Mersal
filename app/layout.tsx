@@ -30,6 +30,10 @@ export default async function RootLayout({
     <html lang="ar" dir="rtl">
       <head>
         <link rel="icon" href="/assets/icon.png" sizes="any" />
+        <script
+          src="https://upload-widget.cloudinary.com/latest/global/all.js"
+          type="text/javascript"
+        ></script>
       </head>
       <body style={{ fontFamily: "LBC-bold" }}>
         {children}

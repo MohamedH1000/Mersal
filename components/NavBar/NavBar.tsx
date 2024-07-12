@@ -158,9 +158,17 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                       </MenubarItem>
                     </Link>
                     <MenubarSeparator />
-                    <Link href={`/reservation/${currentUser.id}`}>
+                    {currentUser?.role === "admin" && (
+                      <Link href={`/reservation/all-reservations`}>
+                        <MenubarItem className="cursor-pointer">
+                          الحجوزات
+                        </MenubarItem>
+                      </Link>
+                    )}
+                    <MenubarSeparator />
+                    <Link href={`/trips`}>
                       <MenubarItem className="cursor-pointer">
-                        حجوزاتي
+                        رحلاتي
                       </MenubarItem>
                     </Link>
                     <MenubarSeparator />

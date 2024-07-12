@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/action/user.action";
 import EmptyState from "@/components/Reservations/EmptyState";
 import { getAllChalets } from "@/lib/action/chalet.action";
 import ListingCard from "@/components/Lisitng/ListingCard";
+import ImageUpload from "@/components/AddChalet/ImageUpload";
 
 const page = async () => {
   const currentUser = await getCurrentUser();
@@ -21,16 +22,18 @@ const page = async () => {
           <EmptyState />
         </div>
       ) : (
-        <div
-          className="mt-10 grid gap-8 w-full lg:grid-cols-4 
+        <>
+          <div
+            className="mt-10 grid gap-8 w-full lg:grid-cols-4 
         max-md:grid-cols-2 max-sm:grid-cols-1 md:grid-cols-2 mb-10"
-        >
-          {allChalets?.map((chalet: any, i) => {
-            return (
-              <ListingCard data={chalet} key={i} currentUser={currentUser} />
-            );
-          })}
-        </div>
+          >
+            {allChalets?.map((chalet: any, i) => {
+              return (
+                <ListingCard data={chalet} key={i} currentUser={currentUser} />
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );

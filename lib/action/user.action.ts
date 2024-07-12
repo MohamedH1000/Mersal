@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { Prisma } from "@prisma/client";
 
 export async function createUser(userData: any) {
   try {
@@ -18,9 +19,16 @@ export async function createUser(userData: any) {
     });
 
     return user;
-  } catch (error) {
-    console.log(error);
-    throw error;
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      // The .code property can be accessed in a type-safe manner
+      if (e.code === "P2002") {
+        console.log(
+          "There is a unique constraint violation, a new user cannot be created with this email"
+        );
+      }
+    }
+    throw e;
   }
 }
 

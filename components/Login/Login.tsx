@@ -10,7 +10,7 @@ import { signIn } from "next-auth/react";
 import { CircularProgress } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
 
-const Register = () => {
+const Login = () => {
   const router = useRouter();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -21,15 +21,12 @@ const Register = () => {
   });
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    if (isLoading) return;
     setIsLoading(true);
     try {
       signIn("credentials", {
         ...loginData,
         redirect: false,
       }).then((callback) => {
-        setIsLoading(false);
-
         if (callback?.ok) {
           toast({
             title: "تم تسجيل دخول بنجاح",
@@ -51,8 +48,6 @@ const Register = () => {
   };
 
   const signInGoogle = () => {
-    if (googleLoading) return;
-
     setGoogleLoading(true);
     signIn("google").finally(() => setGoogleLoading(false));
   };
@@ -127,4 +122,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

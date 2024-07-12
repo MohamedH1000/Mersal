@@ -52,7 +52,7 @@ export async function getReservations(params: any) {
     }
 
     if (authorId) {
-      query.authorId = { userId: authorId };
+      query.listing = { userId: authorId };
     }
 
     const reservations = await prisma.reservation.findMany({
@@ -80,4 +80,27 @@ export async function getReservations(params: any) {
   } catch (error: any) {
     throw new Error(error);
   }
+}
+
+export async function deleteReservation(params: any) {
+  const currentUser = await getCurrentUser();
+
+  if (!currentUser) {
+    throw new Error("يجب ان تسجل دخولك لالغاء الحجز");
+  }
+
+  const { reservationId } = params;
+
+  if (!reservationId || typeof reservationId !== "string") {
+    throw new Error("Invalid ID");
+  }
+
+  const reservation = await prisma.reservation.deleteMany({
+    where: {
+      id: reservationId,
+      OR: [{ userId: currentUser.id }, { listing: { userId: currentUser.id } }],
+    },
+  });
+
+  return reservation;
 }

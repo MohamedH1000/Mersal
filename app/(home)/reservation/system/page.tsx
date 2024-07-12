@@ -14,7 +14,7 @@ const page = async () => {
   return (
     <div
       className="min-h-screen mt-[130px] w-full
-    px-20 max-md:px-5 flex flex-col items-center"
+    px-[150px] max-md:px-5 flex flex-col items-center"
     >
       <ReservationNav />
       <div

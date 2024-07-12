@@ -95,7 +95,7 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
           {currentUser ? (
             <>
               <Link
-                href={"/my-profile"}
+                href={`/my-profile/${currentUser.id}`}
                 className={`${
                   pathname === "/my-profile"
                     ? "border-b-[2px] border-black"
@@ -105,9 +105,36 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
               >
                 حسابي{" "}
               </Link>
+              {currentUser.role === "admin" && (
+                <Link
+                  href={`/reservation/all-reservations`}
+                  className={`${
+                    pathname === "/my-profile"
+                      ? "border-b-[2px] border-black"
+                      : ""
+                  }hover:border-b-[2px] border-black`}
+                  onClick={() => setOpen((prev: any) => !prev)}
+                >
+                  الحجوزات{" "}
+                </Link>
+              )}
+              <Link
+                href={`/trips`}
+                className={`${
+                  pathname === "/my-profile"
+                    ? "border-b-[2px] border-black"
+                    : ""
+                }hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                رحلاتي{" "}
+              </Link>
               <Button
                 className={`text-white bg-[#bda069] text-[20px] px-10 rounded-md font-bold py-3 w-full`}
-                onClick={() => signOut()}
+                onClick={() => {
+                  signOut();
+                  setOpen((prev: any) => !prev);
+                }}
               >
                 تسجيل الخروج{" "}
               </Button>

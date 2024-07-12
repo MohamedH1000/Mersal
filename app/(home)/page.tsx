@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="mt-[130px] main-background">
       <div
-        className=" flex flex-col items-start justify-center 
+        className="flex flex-col items-start justify-center 
         gap-5 px-[200px] h-full max-md:px-5
       max-md:items-center max-sm:items-center max-md:text-center"
       >
