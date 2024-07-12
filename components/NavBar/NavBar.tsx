@@ -151,22 +151,25 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                     </Link>
                     <MenubarSeparator />
                     {currentUser?.role === "admin" && (
-                      <Link href={`/addchalet`}>
-                        <MenubarItem className="cursor-pointer">
-                          قم باضافة شاليه
-                        </MenubarItem>
-                      </Link>
+                      <>
+                        <Link href={`/addchalet`}>
+                          <MenubarItem className="cursor-pointer">
+                            قم باضافة شاليه
+                          </MenubarItem>
+                        </Link>
+                        <MenubarSeparator />
+                      </>
                     )}
-                    <MenubarSeparator />
-
                     {currentUser?.role === "admin" && (
-                      <Link href={`/reservation/all-reservations`}>
-                        <MenubarItem className="cursor-pointer">
-                          الحجوزات
-                        </MenubarItem>
-                      </Link>
+                      <>
+                        <Link href={`/reservation/all-reservations`}>
+                          <MenubarItem className="cursor-pointer">
+                            الحجوزات
+                          </MenubarItem>
+                        </Link>
+                        <MenubarSeparator />
+                      </>
                     )}
-                    <MenubarSeparator />
                     <Link href={`/trips`}>
                       <MenubarItem className="cursor-pointer">
                         رحلاتي

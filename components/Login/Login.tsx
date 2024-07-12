@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { CircularProgress } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
+import { error } from "console";
 
 const Login = () => {
   const router = useRouter();
@@ -30,6 +31,7 @@ const Login = () => {
         if (callback?.ok) {
           toast({
             title: "تم تسجيل دخول بنجاح",
+            className: "bg-[green] text-white",
           });
           router.refresh();
         }
@@ -37,6 +39,7 @@ const Login = () => {
         if (callback?.error) {
           toast({
             title: "حدثت مشكلة اثناء عملية تسجيل الدخول",
+            className: "bg-[red] text-white",
           });
         }
       });
@@ -49,7 +52,11 @@ const Login = () => {
 
   const signInGoogle = () => {
     setGoogleLoading(true);
-    signIn("google").finally(() => setGoogleLoading(false));
+    try {
+      signIn("google").finally(() => setGoogleLoading(false));
+    } catch (error: any) {
+      console.log(error);
+    }
   };
   return (
     <motion.div

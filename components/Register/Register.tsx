@@ -34,6 +34,7 @@ const Register = () => {
       await createUser(registerData);
       toast({
         title: "تم انشاء الحساب بنجاح",
+        className: "bg-[green] text-white",
       });
       const loginData = {
         email: registerData.email,
@@ -54,6 +55,7 @@ const Register = () => {
       toast({
         title: "مشكلة في انشاء المستخدم",
         description: "برجاء التاكد من البيانات",
+        className: "bg-[red] text-white",
       });
     } finally {
       setIsLoading(false);
@@ -63,7 +65,11 @@ const Register = () => {
     if (googleLoading) return;
 
     setGoogleLoading(true);
-    signIn("google").finally(() => setGoogleLoading(false));
+    try {
+      signIn("google").finally(() => setGoogleLoading(false));
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <motion.div
