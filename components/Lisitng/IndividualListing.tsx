@@ -59,6 +59,8 @@ const IndividualListing: React.FC<ListingClientProps> = ({
       });
       toast({
         title: "تم حجز الشاليه",
+        description:
+          "بامكانك التوجه من خلال قائمة المستخدم الى رحلاتي لرؤية بيانات الحجز",
       });
       setDateRange(initialDateRange);
       router.refresh();

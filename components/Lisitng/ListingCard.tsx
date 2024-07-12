@@ -7,6 +7,18 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import HeartButton from "./HeartButton";
 import { motion } from "framer-motion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 interface ListingCardProps {
   data: Listing;
   reservation?: Reservation | any;
@@ -60,7 +72,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
   return (
     <motion.div
       className="col-span-1 cursor-default group"
-      onClick={() => router.push(`/listings/${data.id}`)}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
@@ -74,6 +85,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             className="object-cover h-full w-full 
             group-hover:scale-110 transition"
             fill
+            onClick={() => router.push(`/listings/${data.id}`)}
           />
           <div className="absolute top-3 right-3">
             <HeartButton listingId={data?.id} currentUser={currentUser} />
@@ -87,14 +99,37 @@ const ListingCard: React.FC<ListingCardProps> = ({
           {!reservation && <div className="font-light">لكل ليلة</div>}
         </div>
         {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            onClick={handleCancel}
-            className="bg-[#bda069] text-white border-[#bda069]
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button
+                disabled={disabled}
+                className="bg-[#bda069] text-white border-[#bda069]
           hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
-          >
-            {actionLabel}
-          </Button>
+              >
+                {actionLabel}
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent dir="rtl" className="flex flex-col items-start">
+              <AlertDialogHeader dir="rtl">
+                <AlertDialogTitle className="text-start">
+                  {actionLabel === "قم بحذف الشاليه" &&
+                    "هل انت متاكد من اتمام عملية الحذف"}
+                  {actionLabel === "الغاء الحجز" &&
+                    "هل انت متاكد بالغاء هذا الحجز ؟"}
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {actionLabel === "قم بحذف الشاليه" &&
+                    "هذه العملية لا يمكن ارجاعها وسيتم حذف جميع الحجوزات المرتبطه بهذا الشاليه"}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter className="gap-3">
+                <AlertDialogAction onClick={handleCancel}>
+                  تاكيد
+                </AlertDialogAction>
+                <AlertDialogCancel>الغاء</AlertDialogCancel>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         )}
       </div>
     </motion.div>

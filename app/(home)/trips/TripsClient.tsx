@@ -39,7 +39,7 @@ const TripsClient: React.FC<TripClientProps> = ({
   );
   return (
     <div className="px-[145px] max-md:px-5">
-      <h1 className="text-[40px] max-md:text-[30px] font-medium">الحجوزات</h1>
+      <h1 className="text-[40px] max-md:text-[30px] font-medium">رحلاتي</h1>
       <p className="opacity-60">اين كنت واين ستذهب</p>
       <div className="mt-10 grid  sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-8">
         {reservations?.map((reservation: any) => (

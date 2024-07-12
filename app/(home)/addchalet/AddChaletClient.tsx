@@ -43,7 +43,7 @@ max-md:grid-cols-2 max-sm:grid-cols-1 md:grid-cols-2 mb-10"
             key={chalet.id}
             actionId={chalet.id}
             currentUser={currentUser}
-            actionLabel="قم بحذف الحجز"
+            actionLabel="قم بحذف الشاليه"
             onAction={onCancel}
             disabled={deleteId === chalet.id}
           />

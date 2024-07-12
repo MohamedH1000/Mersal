@@ -6,6 +6,17 @@ import Calender from "./Calender";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 interface ListingReservationProps {
   price: number;
   dateRange: Range;
@@ -26,6 +37,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   disableDates,
   isLoading,
 }) => {
+  console.log(dateRange);
   return (
     <motion.div
       className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden"
@@ -46,16 +58,40 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
       />
       <Separator />
       <div className="p-4">
-        <Button
-          disabled={isLoading ? true : false}
-          label="Reserve"
-          onClick={onSubmit}
-          className="w-full rounded-md bg-[#bda069]
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button
+              disabled={isLoading ? true : false}
+              label="Reserve"
+              className="w-full rounded-md bg-[#bda069]
         text-white border-[#bda069] hover:border-[1px] hover:bg-white 
         hover:text-[#bda069] transtion duration-300 font-bold"
-        >
-          {isLoading ? "برجاء الانتظار" : "قم بالحجز"}
-        </Button>
+            >
+              {isLoading ? "برجاء الانتظار" : "قم بالحجز"}
+            </Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className="flex flex-col items-start">
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-start">
+                بيانات الحجز
+              </AlertDialogTitle>
+              <AlertDialogDescription className="flex justify-between items-center gap-5">
+                <div>
+                  <h1>:من تاريخ</h1>
+                  <p>{dateRange?.startDate?.toString()}</p>
+                </div>
+                <div>
+                  <h1>الى تاريخ:</h1>
+                  <p>{dateRange?.endDate?.toString()}</p>
+                </div>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter className="gap-5">
+              <AlertDialogAction onClick={onSubmit}>تاكيد</AlertDialogAction>
+              <AlertDialogCancel>الغاء</AlertDialogCancel>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
       <div className="p-4 flex flex-row  items-center justify-between font-semibold text-lg">
         <div>المجموع:</div>
