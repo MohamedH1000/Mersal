@@ -39,6 +39,12 @@ const IndividualListing: React.FC<ListingClientProps> = ({
   }, [reservations]);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [servicePrice, setServicePrice] = useState({
+    chairPrice: 0,
+    coffeePrice: 0,
+    sweetPrice: 0,
+    tablePrice: 0,
+  });
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const router = useRouter();
@@ -61,6 +67,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
         title: "تم حجز الشاليه",
         description:
           "بامكانك التوجه من خلال قائمة المستخدم الى رحلاتي لرؤية بيانات الحجز",
+        className: "bg-[green] text-white",
       });
       setDateRange(initialDateRange);
       router.refresh();
@@ -68,24 +75,51 @@ const IndividualListing: React.FC<ListingClientProps> = ({
       console.log(error);
       toast({
         title: "حدث خطا اثناء حجز الشاليه",
+        className: "bg-[red] text-white",
       });
     } finally {
       setIsLoading(false);
     }
   }, [totalPrice, dateRange, listing?.id, router, currentUser]);
+  console.log("listing price", listing?.price);
+  console.log("here is the total price", totalPrice);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {
       const dayCount =
         differenceInCalendarDays(dateRange.endDate, dateRange.startDate) + 1;
 
+      let newTotalPrice = 0;
+
       if (dayCount && listing.price) {
-        setTotalPrice(dayCount * listing?.price);
+        newTotalPrice = dayCount * listing?.price;
       } else {
-        setTotalPrice(listing.price);
+        newTotalPrice = listing.price;
       }
+
+      if (servicePrice.chairPrice > 0) {
+        newTotalPrice += servicePrice.chairPrice * 200;
+      }
+      if (servicePrice.sweetPrice > 0) {
+        newTotalPrice += servicePrice.sweetPrice * 150;
+      }
+      if (servicePrice.coffeePrice > 0) {
+        newTotalPrice += servicePrice.coffeePrice * 250;
+      }
+      if (servicePrice.tablePrice > 0) {
+        newTotalPrice += servicePrice.tablePrice * 100;
+      }
+
+      setTotalPrice(newTotalPrice);
     }
-  }, [dateRange, listing?.price]);
+  }, [
+    dateRange,
+    listing?.price,
+    servicePrice.chairPrice,
+    servicePrice.sweetPrice,
+    servicePrice.tablePrice,
+    servicePrice.coffeePrice,
+  ]);
   return (
     <div className="min-h-screen mt-[140px] px-[150px] max-lg:px-5">
       <div className="flex flex-col gap-6">
@@ -105,6 +139,8 @@ const IndividualListing: React.FC<ListingClientProps> = ({
           />
           <div className="order-first mb-10 xl:order-last md:col-span-3">
             <ListingReservation
+              servicePrice={servicePrice}
+              setServicePrice={setServicePrice}
               isLoading={isLoading}
               price={listing.price}
               totalPrice={totalPrice}

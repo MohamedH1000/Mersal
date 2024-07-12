@@ -21,14 +21,16 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
     async (id: string) => {
       setDeleteId(id);
       try {
-        await deleteReservation(id);
+        await deleteReservation({ reservationId: id });
         toast({
           title: "تم الغاء الحجز بنجاح",
+          className: "bg-[green] text-white",
         });
         router.refresh();
       } catch (error) {
         toast({
           title: "حدثت مشكلة اثناء الغاء الحجز",
+          className: "bg-[red] text-white",
         });
       } finally {
         setDeleteId("");

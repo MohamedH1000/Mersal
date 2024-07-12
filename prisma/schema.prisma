@@ -66,18 +66,20 @@ model Listing {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations Reservation[]
+  services Services[]
 }
 model Services {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
+  name String
   description String
   imageSrc String
   createdAt DateTime @default(now())
-  category String
   userId String @db.ObjectId
+  listingId String? @db.ObjectId
   price Int
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing? @relation(fields: [listingId], references: [id], onDelete: Cascade)
   reservations Reservation[]
 }
 
@@ -91,7 +93,7 @@ model Reservation {
   totalPrice Int
   createdAt DateTime @default(now())
 
-  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
   services Services? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
 }

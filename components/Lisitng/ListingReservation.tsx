@@ -26,6 +26,8 @@ interface ListingReservationProps {
   disabled?: boolean;
   disableDates: Date[] | any;
   isLoading: Boolean;
+  servicePrice: any;
+  setServicePrice: any;
 }
 const ListingReservation: React.FC<ListingReservationProps> = ({
   price,
@@ -36,8 +38,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   disabled,
   disableDates,
   isLoading,
+  servicePrice,
+  setServicePrice,
 }) => {
-  console.log(dateRange);
   return (
     <motion.div
       className="bg-white rounded-xl border-[1px] border-neutral-200 overflow-hidden"
@@ -56,6 +59,157 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         disabledDates={disableDates}
         onChange={(value) => onChangeDate(value.selection)}
       />
+      <Separator />
+      <div className="flex flex-col items-start p-2 mt-5 gap-2">
+        <h1 className="font-bold">هل ترغب في خدمات اضافية؟</h1>
+        <div className="flex justify-between items-center w-full max-sm:flex-col max-sm:items-start max-sm:gap-2">
+          <h1> كراسي حفلات - 200 ريال</h1>
+          <div className="flex justify-center items-center">
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() =>
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  chairPrice: prevState.chairPrice + 1,
+                }))
+              }
+            >
+              +
+            </Button>
+            <input
+              type="number"
+              value={servicePrice.chairPrice}
+              onChange={(e) =>
+                setServicePrice({ ...servicePrice, chairPrice: e.target.value })
+              }
+              className="text-center border-[#bda069] border-[1px] h-[34.5px] w-[50px]"
+            />
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() => {
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  chairPrice:
+                    prevState.chairPrice > 0 ? prevState.chairPrice - 1 : 0,
+                }));
+              }}
+            >
+              -
+            </Button>{" "}
+          </div>
+        </div>
+        <div className="flex justify-between items-center w-full max-sm:flex-col max-sm:items-start max-sm:gap-2">
+          <h1> ضيافة قهوة - 250 ريال</h1>
+          <div className="flex justify-center items-center">
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() =>
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  coffeePrice: prevState.coffeePrice + 1,
+                }))
+              }
+            >
+              +
+            </Button>
+            <input
+              type="number"
+              value={servicePrice.coffeePrice}
+              onChange={(e) =>
+                setServicePrice({
+                  ...servicePrice,
+                  coffeePrice: e.target.value,
+                })
+              }
+              className="text-center border-[#bda069] border-[1px] h-[34.5px] w-[50px]"
+            />
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() => {
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  coffeePrice:
+                    prevState.coffeePrice > 0 ? prevState.coffeePrice - 1 : 0,
+                }));
+              }}
+            >
+              -
+            </Button>{" "}
+          </div>
+        </div>
+        <div className="flex justify-between items-center w-full max-sm:flex-col max-sm:items-start max-sm:gap-2">
+          <h1> ضيافة حلى - 150 ريال</h1>
+          <div className="flex justify-center items-center">
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() =>
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  sweetPrice: prevState.sweetPrice + 1,
+                }))
+              }
+            >
+              +
+            </Button>
+            <input
+              type="number"
+              value={servicePrice.sweetPrice}
+              onChange={(e) =>
+                setServicePrice({ ...servicePrice, sweetPrice: e.target.value })
+              }
+              className="text-center border-[#bda069] border-[1px] h-[34.5px] w-[50px]"
+            />
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() => {
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  sweetPrice:
+                    prevState.sweetPrice > 0 ? prevState.sweetPrice - 1 : 0,
+                }));
+              }}
+            >
+              -
+            </Button>{" "}
+          </div>
+        </div>
+        <div className="flex justify-between items-center w-full max-sm:flex-col max-sm:items-start max-sm:gap-2">
+          <h1> سفرة طعام - 100 ريال</h1>
+          <div className="flex justify-center items-center">
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() =>
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  tablePrice: prevState.tablePrice + 1,
+                }))
+              }
+            >
+              +
+            </Button>
+            <input
+              type="number"
+              value={servicePrice.tablePrice}
+              onChange={(e) =>
+                setServicePrice({ ...servicePrice, tablePrice: e.target.value })
+              }
+              className="text-center border-[#bda069] border-[1px] h-[34.5px] w-[50px]"
+            />
+            <Button
+              className="h-[35px] bg-[#bda069] text-white font-bold rounded-none"
+              onClick={() => {
+                setServicePrice((prevState: any) => ({
+                  ...prevState,
+                  tablePrice:
+                    prevState.tablePrice > 0 ? prevState.tablePrice - 1 : 0,
+                }));
+              }}
+            >
+              -
+            </Button>{" "}
+          </div>
+        </div>
+      </div>
       <Separator />
       <div className="p-4">
         <AlertDialog>
