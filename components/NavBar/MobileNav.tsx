@@ -40,16 +40,16 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ ease: "easeInOut", duration: 0.2 }}
           exit={{ opacity: 0 }}
-          className="flex flex-col justify-center 
-        items-start gap-5 text-[20px]  bg-white  py-10 
-        border-[gray] border-t-[2px] px-10 absolute 
-        top-[130px] right-0 w-full -z-10"
+          className="flex flex-col justify-center
+        items-start gap-5 text-[20px]  bg-white py-10 
+        border-[#bda069] border-[2px] px-10 absolute
+        top-[130px] right-0 w-full z-10 h-[300px] overflow-auto"
         >
           <Link
             href={"/"}
             className={`${
               pathname === "/" ? "border-b-[2px] border-black" : ""
-            }hover:border-b-[2px] border-black`}
+            }hover:border-b-[2px] border-black mt-[220px]`}
             onClick={() => setOpen((prev: any) => !prev)}
           >
             الرئيسية
@@ -58,7 +58,7 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
             <Link
               href={"/addchalet"}
               className={`${
-                pathname === "/reservation" ? "border-b-[2px] border-black" : ""
+                pathname === "/addchalet" ? "border-b-[2px] border-black" : ""
               }hover:border-b-[2px] border-black`}
               onClick={() => setOpen((prev: any) => !prev)}
             >
@@ -74,24 +74,7 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
           >
             الحجز
           </Link>
-          <Link
-            href={"/services"}
-            className={`${
-              pathname === "/services" ? "border-b-[2px] border-black" : ""
-            }hover:border-b-[2px] border-black`}
-            onClick={() => setOpen((prev: any) => !prev)}
-          >
-            الخدمات الاضافية
-          </Link>
-          <Link
-            href={"/contact-us"}
-            className={`${
-              pathname === "/contact-us" ? "border-b-[2px] border-black" : ""
-            }hover:border-b-[2px] border-black`}
-            onClick={() => setOpen((prev: any) => !prev)}
-          >
-            اتصل بنا{" "}
-          </Link>
+
           {currentUser ? (
             <>
               <Link
@@ -109,7 +92,7 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
                 <Link
                   href={`/reservation/all-reservations`}
                   className={`${
-                    pathname === "/my-profile"
+                    pathname === "/reservation/all-reservations"
                       ? "border-b-[2px] border-black"
                       : ""
                   }hover:border-b-[2px] border-black`}
@@ -121,13 +104,42 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
               <Link
                 href={`/trips`}
                 className={`${
-                  pathname === "/my-profile"
+                  pathname === "/trips" ? "border-b-[2px] border-black" : ""
+                }hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                رحلاتي{" "}
+              </Link>
+              <Link
+                href={`/favourites`}
+                className={`${
+                  pathname === "/favourites"
                     ? "border-b-[2px] border-black"
                     : ""
                 }hover:border-b-[2px] border-black`}
                 onClick={() => setOpen((prev: any) => !prev)}
               >
-                رحلاتي{" "}
+                المفضلة{" "}
+              </Link>
+              <Link
+                href={"/services"}
+                className={`${
+                  pathname === "/services" ? "border-b-[2px] border-black" : ""
+                }hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                الخدمات الاضافية
+              </Link>
+              <Link
+                href={"/contact-us"}
+                className={`${
+                  pathname === "/contact-us"
+                    ? "border-b-[2px] border-black"
+                    : ""
+                }hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                اتصل بنا{" "}
               </Link>
               <Button
                 className={`text-white bg-[#bda069] text-[20px] px-10 rounded-md font-bold py-3 w-full`}

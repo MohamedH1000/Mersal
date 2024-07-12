@@ -144,6 +144,12 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                     </Avatar>
                   </MenubarTrigger>
                   <MenubarContent>
+                    <Link href={`/my-profile/${currentUser?.id}`}>
+                      <MenubarItem className="cursor-pointer">
+                        حسابي
+                      </MenubarItem>
+                    </Link>
+                    <MenubarSeparator />
                     {currentUser?.role === "admin" && (
                       <Link href={`/addchalet`}>
                         <MenubarItem className="cursor-pointer">
@@ -152,12 +158,7 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                       </Link>
                     )}
                     <MenubarSeparator />
-                    <Link href={`/my-profile/${currentUser?.id}`}>
-                      <MenubarItem className="cursor-pointer">
-                        حسابي
-                      </MenubarItem>
-                    </Link>
-                    <MenubarSeparator />
+
                     {currentUser?.role === "admin" && (
                       <Link href={`/reservation/all-reservations`}>
                         <MenubarItem className="cursor-pointer">
@@ -169,6 +170,12 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                     <Link href={`/trips`}>
                       <MenubarItem className="cursor-pointer">
                         رحلاتي
+                      </MenubarItem>
+                    </Link>
+                    <MenubarSeparator />
+                    <Link href={`/favourites`}>
+                      <MenubarItem className="cursor-pointer">
+                        المفضلة
                       </MenubarItem>
                     </Link>
                     <MenubarSeparator />

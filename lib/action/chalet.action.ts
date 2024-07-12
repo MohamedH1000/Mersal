@@ -77,6 +77,27 @@ export async function getChaletById(params: any) {
   }
 }
 
+export async function removeChaletById(params: any) {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser?.role !== "admin")
+    throw new Error("غير مسموح لك بحذف الشاليه");
+
+  const { listingId } = params;
+
+  if (!listingId || typeof listingId !== "string") {
+    throw new Error("Invalid ID");
+  }
+
+  const listing = await prisma.listing.deleteMany({
+    where: {
+      id: listingId,
+      userId: currentUser.id,
+    },
+  });
+  return listing;
+}
+
 export async function addToFavourite(params: any) {
   const currentUser = await getCurrentUser();
 

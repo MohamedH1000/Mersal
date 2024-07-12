@@ -1,16 +1,16 @@
-import AddChaletDialog from "@/components/AddChalet/AddChaletDialog";
 import React from "react";
 import { getCurrentUser } from "@/lib/action/user.action";
 import EmptyState from "@/components/Reservations/EmptyState";
 import { getAllChalets } from "@/lib/action/chalet.action";
-import ListingCard from "@/components/Lisitng/ListingCard";
-import ImageUpload from "@/components/AddChalet/ImageUpload";
+import { redirect } from "next/navigation";
+import AddChaletClient from "./AddChaletClient";
+import AddChaletDialog from "@/components/AddChalet/AddChaletDialog";
 
 const page = async () => {
   const currentUser = await getCurrentUser();
   const allChalets = await getAllChalets();
   const isEmpty = allChalets?.length === 0 ? true : false;
-
+  if (currentUser?.role !== "admin") redirect("/");
   return (
     <div
       className="min-h-screen mt-[130px] px-[150px] max-md:px-5 
@@ -22,18 +22,7 @@ const page = async () => {
           <EmptyState />
         </div>
       ) : (
-        <>
-          <div
-            className="mt-10 grid gap-8 w-full lg:grid-cols-4 
-        max-md:grid-cols-2 max-sm:grid-cols-1 md:grid-cols-2 mb-10"
-          >
-            {allChalets?.map((chalet: any, i) => {
-              return (
-                <ListingCard data={chalet} key={i} currentUser={currentUser} />
-              );
-            })}
-          </div>
-        </>
+        <AddChaletClient allChalets={allChalets} currentUser={currentUser} />
       )}
     </div>
   );
