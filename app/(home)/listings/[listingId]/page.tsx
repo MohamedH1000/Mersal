@@ -9,7 +9,7 @@ const page = async ({ params }: any) => {
   const { listingId } = params;
   const listing = await getChaletById({ listingId });
   const reservations = await getReservations(params);
-  console.log(reservations);
+  // console.log(reservations);
 
   if (!listing) {
     return <div>حدثت مشكلة اثناء عرض هذا الشاليه</div>;
