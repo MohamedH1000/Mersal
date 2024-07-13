@@ -62,6 +62,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
         listingId: listing?.id,
+        servicePrice,
       });
       toast({
         title: "تم حجز الشاليه",
@@ -81,8 +82,8 @@ const IndividualListing: React.FC<ListingClientProps> = ({
       setIsLoading(false);
     }
   }, [totalPrice, dateRange, listing?.id, router, currentUser]);
-  console.log("listing price", listing?.price);
-  console.log("here is the total price", totalPrice);
+  // console.log("listing price", listing?.price);
+  // console.log("here is the total price", totalPrice);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {

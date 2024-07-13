@@ -23,7 +23,12 @@ const page = async () => {
       >
         {allChalets?.map((chalet: any, i) => {
           return (
-            <ListingCard data={chalet} key={i} currentUser={currentUser} />
+            <ListingCard
+              data={chalet}
+              key={i}
+              currentUser={currentUser}
+              typeOfListing="reservation"
+            />
           );
         })}
       </div>

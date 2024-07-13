@@ -25,6 +25,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@radix-ui/react-menubar";
+import { Input } from "postcss";
 
 interface ListingCardProps {
   data: Listing;
@@ -34,6 +45,7 @@ interface ListingCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: any;
+  typeOfListing?: string;
 }
 const ListingCard: React.FC<ListingCardProps> = ({
   data,
@@ -43,6 +55,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   actionLabel,
   actionId = "",
   currentUser,
+  typeOfListing,
 }) => {
   const router = useRouter();
 
@@ -112,17 +125,140 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <div className="font-light text-neutral-500">
           {reservationDate || ""}
         </div>
+        <div className="flex justify-between items-center font-bold">
+          <p>حجز عن</p>
+          <p>{reservation?.user?.name}</p>
+        </div>
         <div className="flex flex-row items-center gap-1 justify-between">
           <div className="font-semibold">SAR {data.price}</div>
           {!reservation && <div className="font-light">لكل ليلة</div>}
         </div>
-        <Button
-          onClick={() => router.push(`/listings/${data.id}`)}
-          className="bg-[#bda069] text-white border-[#bda069]
+        {(typeOfListing === "myReservations" || typeOfListing === "trips") && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                className="bg-[#bda069] text-white border-[#bda069]
  hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
-        >
-          قم بالحجز الان
-        </Button>
+              >
+                عرض تفاصيل الحجز
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] h-[500px] overflow-y-auto">
+              <DialogHeader className="flex flex-col items-start mt-4">
+                <DialogTitle>بيانات الحجز</DialogTitle>
+                <DialogDescription>
+                  هذه بيانات الحجز الخاصة بك
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="flex justify-between items-center">
+                  <Label className="text-right">الاسم</Label>
+                  <p>{reservation?.user?.name}</p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <Label className="text-right">الايميل</Label>
+                  <p>{reservation?.user?.email}</p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <Label className="text-right">تاريخ الوصول:</Label>
+                  <p>{format(new Date(reservation?.startDate), "PP")}</p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <Label className="text-right">تاريخ المغادرة:</Label>
+                  <p>{format(new Date(reservation?.endDate), "PP")}</p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <Label className="text-right">سعر الليلة:</Label>
+                  <p className="font-bold">{reservation.listing.price} SAR</p>
+                </div>
+                <div className="flex justify-between items-center ">
+                  {!reservation.servicePrice.chairPrice ||
+                  !reservation.servicePrice.sweetPrice ||
+                  !reservation.servicePrice.chairPrice ||
+                  !reservation.servicePrice.tablePrice ? (
+                    <Label className="text-center flex justify-center items-center w-full opacity-60">
+                      لا يوجد خدمات اضافية
+                    </Label>
+                  ) : (
+                    <div className="flex flex-col items-start gap-5 w-full">
+                      <Label className="text-center flex justify-center items-center w-full">
+                        الخدمات الاضافية
+                      </Label>
+                      <div className="flex justify-between items-center w-full opacity-60">
+                        <Label className="text-right">
+                          كراسي حفلات (x{reservation.servicePrice.chairPrice})
+                        </Label>
+                        <p>{reservation.servicePrice.chairPrice * 200} SAR</p>
+                      </div>
+                      <div className="flex justify-between items-center w-full opacity-60">
+                        <Label className="text-right">
+                          ضيافة قهوة (x{reservation.servicePrice.coffeePrice})
+                        </Label>
+                        <p>{reservation.servicePrice.coffeePrice * 250} SAR</p>
+                      </div>
+                      <div className="flex justify-between items-center w-full opacity-60">
+                        <Label className="text-right">
+                          ضيافة حلى (x{reservation.servicePrice.sweetPrice})
+                        </Label>
+                        <p>{reservation.servicePrice.sweetPrice * 150} SAR</p>
+                      </div>
+                      <div className="flex justify-between items-center w-full opacity-60">
+                        <Label className="text-right">
+                          سفرة طعام (x{reservation.servicePrice.tablePrice})
+                        </Label>
+                        <p>{reservation.servicePrice.tablePrice * 100} SAR</p>
+                      </div>
+                      <div className="flex justify-between items-center w-full opacity-60">
+                        <Label className="text-right">
+                          مجموع الخدمات الاضافية
+                        </Label>
+                        <p>
+                          {reservation.servicePrice.tablePrice * 100 +
+                            reservation.servicePrice.sweetPrice * 150 +
+                            reservation.servicePrice.coffeePrice * 250 +
+                            reservation.servicePrice.chairPrice * 200}{" "}
+                          SAR
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="flex justify-between items-center">
+                  <Label className="text-right">المجموع الكلي:</Label>
+                  <p className="font-bold">{reservation.totalPrice} SAR</p>
+                </div>
+              </div>
+              <DialogFooter className="flex justify-center items-center w-full">
+                <Button
+                  type="submit"
+                  className="bg-[#bda069] text-white border-[#bda069]
+ hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+                  onClick={() => router.push(`/listings/${data.id}`)}
+                >
+                  اظهار صفحة الحجز
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        )}
+        {typeOfListing === "reservation" && (
+          <Button
+            onClick={() => router.push(`/listings/${data.id}`)}
+            className="bg-[#bda069] text-white border-[#bda069]
+ hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+          >
+            قم بالحجز الان
+          </Button>
+        )}
+        {typeOfListing === "favourite" && (
+          <Button
+            onClick={() => router.push(`/listings/${data.id}`)}
+            className="bg-[#bda069] text-white border-[#bda069]
+ hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+          >
+            عرض التفاصيل
+          </Button>
+        )}
         {onAction && actionLabel && (
           <AlertDialog>
             <AlertDialogTrigger asChild>

@@ -8,7 +8,7 @@ export async function createReservation(params: any) {
   if (!currentUser) {
     throw new Error("يجب تسجيل الدخول للقيام بعملية الحجز");
   }
-  const { listingId, startDate, endDate, totalPrice } = params;
+  const { listingId, startDate, endDate, totalPrice, servicePrice } = params;
 
   if (!listingId || !startDate || !endDate || !totalPrice) {
     throw new Error("تاكد من تعبئة البيانات");
@@ -24,6 +24,7 @@ export async function createReservation(params: any) {
           startDate,
           endDate,
           totalPrice,
+          servicePrice,
           user: {
             connect: {
               id: currentUser.id,
@@ -59,6 +60,7 @@ export async function getReservations(params: any) {
       where: query,
       include: {
         listing: true,
+        user: true,
       },
       orderBy: {
         createdAt: "desc",

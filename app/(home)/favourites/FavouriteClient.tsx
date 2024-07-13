@@ -19,6 +19,7 @@ const FavouriteClient: React.FC<FavouriteClientProps> = ({
             currentUser={currentUser}
             key={listing.id}
             data={listing}
+            typeOfListing={"favourite"}
           />
         ))}
       </div>

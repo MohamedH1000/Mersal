@@ -39,7 +39,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
                   src={image}
                   alt={`Listing Image ${index + 1}`}
                   className="object-cover"
-                  layout="fill"
+                  fill
                 />
               </CarouselItem>
             ))}
