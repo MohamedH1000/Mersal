@@ -13,7 +13,7 @@ const page = async ({ searchParams }: any) => {
     endDate: searchParams?.endDate,
     guestCount: searchParams?.guestCount,
   });
-  console.log(FilteredChalets);
+  // console.log(FilteredChalets);
   // console.log(searchParams);
   if (!currentUser) {
     redirect("/sign-in");

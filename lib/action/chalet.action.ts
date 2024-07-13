@@ -52,7 +52,7 @@ export async function getChaletBySearch(params: any) {
   const { guestCount, startDate, endDate } = params;
 
   let query: any = {};
-  console.log("Received params:", { guestCount, startDate, endDate });
+  // console.log("Received params:", { guestCount, startDate, endDate });
 
   if (guestCount) {
     query.guestCount = {
