@@ -231,11 +231,11 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               </AlertDialogTitle>
               <AlertDialogDescription>
                 <div className="flex justify-between items-center gap-5">
-                  <div>
-                    <h1>:من تاريخ</h1>
+                  <div className="text-right">
+                    <h1>من تاريخ:</h1>
                     <p>{dateRange?.startDate?.toString()}</p>
                   </div>
-                  <div>
+                  <div className="text-right">
                     <h1>الى تاريخ:</h1>
                     <p>{dateRange?.endDate?.toString()}</p>
                   </div>

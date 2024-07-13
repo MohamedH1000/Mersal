@@ -125,10 +125,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <div className="font-light text-neutral-500">
           {reservationDate || ""}
         </div>
-        <div className="flex justify-between items-center font-bold">
-          <p>حجز عن</p>
-          <p>{reservation?.user?.name}</p>
-        </div>
+        {(typeOfListing === "myReservations" || typeOfListing === "trips") && (
+          <div className="flex justify-between items-center font-bold">
+            <p>حجز عن</p>
+            <p>{reservation?.user?.name}</p>
+          </div>
+        )}
         <div className="flex flex-row items-center gap-1 justify-between">
           <div className="font-semibold">SAR {data.price}</div>
           {!reservation && <div className="font-light">لكل ليلة</div>}

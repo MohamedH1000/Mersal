@@ -25,11 +25,7 @@ export async function createReservation(params: any) {
           endDate,
           totalPrice,
           servicePrice,
-          user: {
-            connect: {
-              id: currentUser.id,
-            },
-          },
+          userId: currentUser.id,
         },
       },
     },

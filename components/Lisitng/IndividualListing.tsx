@@ -4,7 +4,11 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ListingHead from "./ListingHead";
 import ListingInfo from "./ListingInfo";
 import { useRouter } from "next/navigation";
-import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
+import {
+  differenceInCalendarDays,
+  eachDayOfInterval,
+  formatISO,
+} from "date-fns";
 import { useToast } from "../ui/use-toast";
 import ListingReservation from "./ListingReservation";
 import { Range } from "react-date-range";
@@ -48,6 +52,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
   const router = useRouter();
+  // console.log(formatISO(dateRange.startDate));
 
   const onCreateReservation = useCallback(async () => {
     if (!currentUser) {

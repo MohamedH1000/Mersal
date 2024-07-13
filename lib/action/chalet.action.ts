@@ -48,7 +48,48 @@ export async function getAllChalets() {
     console.log(error);
   }
 }
+export async function getChaletBySearch(params: any) {
+  const { guestCount, startDate, endDate } = params;
 
+  let query: any = {};
+  console.log("Received params:", { guestCount, startDate, endDate });
+
+  if (guestCount) {
+    query.guestCount = {
+      gte: +guestCount,
+    };
+  }
+
+  if (startDate && endDate) {
+    query.NOT = {
+      reservations: {
+        some: {
+          OR: [
+            {
+              endDate: { gte: startDate },
+              startDate: { lte: endDate },
+            },
+            {
+              startDate: { lte: endDate },
+              endDate: { gte: endDate },
+            },
+          ],
+        },
+      },
+    };
+  }
+  try {
+    const listings = await prisma.listing.findMany({
+      where: query,
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return listings;
+  } catch (error) {
+    console.log(error);
+  }
+}
 export async function getChaletById(params: any) {
   try {
     const { listingId } = params;
