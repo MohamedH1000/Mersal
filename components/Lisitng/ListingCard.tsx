@@ -18,6 +18,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface ListingCardProps {
   data: Listing;
@@ -51,7 +58,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     },
     [onAction, actionId, disabled]
   );
-
+  // console.log(data.imageSrc);
   const price = useMemo(() => {
     if (reservation) {
       return reservation?.totalPrice;
@@ -79,14 +86,25 @@ const ListingCard: React.FC<ListingCardProps> = ({
     >
       <div className="flex flex-col gap-2 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
-          <Image
-            src={data?.imageSrc ? data?.imageSrc : "/assets/1.jpg"}
-            alt="Listing"
-            className="object-cover h-full w-full 
-            group-hover:scale-110 transition"
-            fill
-            onClick={() => router.push(`/listings/${data.id}`)}
-          />
+          <Carousel className="relative w-full">
+            <CarouselContent>
+              {data.imageSrc?.map((image: string, index: number) => (
+                <CarouselItem key={index}>
+                  <div className="relative aspect-square w-full h-full">
+                    <Image
+                      src={image}
+                      alt={`Listing Image ${index + 1}`}
+                      className="object-cover h-full w-full group-hover:scale-110 transition"
+                      layout="fill"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+            <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+          </Carousel>
+
           <div className="absolute top-3 right-3">
             <HeartButton listingId={data?.id} currentUser={currentUser} />
           </div>
@@ -98,6 +116,13 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <div className="font-semibold">SAR {data.price}</div>
           {!reservation && <div className="font-light">لكل ليلة</div>}
         </div>
+        <Button
+          onClick={() => router.push(`/listings/${data.id}`)}
+          className="bg-[#bda069] text-white border-[#bda069]
+ hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+        >
+          قم بالحجز الان
+        </Button>
         {onAction && actionLabel && (
           <AlertDialog>
             <AlertDialogTrigger asChild>

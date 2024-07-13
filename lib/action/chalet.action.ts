@@ -22,7 +22,7 @@ export async function createChalet(params: any) {
     data: {
       title,
       description,
-      imageSrc,
+      imageSrc: { set: imageSrc },
       roomCount: parseInt(roomCount),
       bathroomCount: parseInt(bathroomCount),
       guestCount: parseInt(guestCount),

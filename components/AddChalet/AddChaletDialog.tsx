@@ -29,11 +29,12 @@ const AddChaletDialog = ({ currentUser }: any) => {
     guestCount: null,
     price: null,
     roomCount: null,
-    imageSrc: "",
+    imageSrc: [],
     description: "",
     title: "",
     pathname,
   });
+  // console.log("chalet details", chaletDetails);
   if (currentUser?.role !== "admin") router.push("/");
   const clear = () => {
     setChaletDetails({
@@ -41,7 +42,7 @@ const AddChaletDialog = ({ currentUser }: any) => {
       guestCount: null,
       price: null,
       roomCount: null,
-      imageSrc: "",
+      imageSrc: [],
       description: "",
       title: "",
     });
@@ -193,7 +194,7 @@ const AddChaletDialog = ({ currentUser }: any) => {
                     type="text"
                     placeholder="عنوان المكان"
                     className="w-full"
-                    value={chaletDetails?.title}
+                    value={chaletDetails?.title || ""}
                     onChange={(e) =>
                       setChaletDetails({
                         ...chaletDetails,

@@ -16,7 +16,7 @@ interface ImageUploadProps {
 const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
   const handleUpload = useCallback(
     (result: any) => {
-      onChange(result.info.secure_url);
+      onChange([...value, result.info.secure_url]);
     },
     [onChange]
   );
@@ -26,7 +26,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
       onUpload={handleUpload}
       uploadPreset="mersal_chalet"
       options={{
-        maxFiles: 1,
+        maxFiles: 10,
       }}
     >
       {({ open }) => {
@@ -38,13 +38,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
           >
             <TbPhotoPlus size={50} />
             <div className="font-semibold text-lg">Click to upload</div>
-            {value && (
+            {value[0] && (
               <div className="absolute inset-0 w-full h-full">
                 <Image
                   alt="Upload"
                   layout="fill"
                   objectFit="cover"
-                  src={value}
+                  src={value[0]}
                 />
               </div>
             )}
