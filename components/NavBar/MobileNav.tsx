@@ -121,6 +121,19 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
               >
                 المفضلة{" "}
               </Link>
+
+              <Button
+                className={`text-white bg-[#bda069] text-[20px] px-10 rounded-md font-bold py-3 w-full`}
+                onClick={() => {
+                  signOut();
+                  setOpen((prev: any) => !prev);
+                }}
+              >
+                تسجيل الخروج{" "}
+              </Button>
+            </>
+          ) : (
+            <>
               <Link
                 href={"/services"}
                 className={`${
@@ -141,23 +154,13 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
               >
                 اتصل بنا{" "}
               </Link>
-              <Button
+              <Link
+                href={"/sign-in"}
                 className={`text-white bg-[#bda069] text-[20px] px-10 rounded-md font-bold py-3 w-full`}
-                onClick={() => {
-                  signOut();
-                  setOpen((prev: any) => !prev);
-                }}
               >
-                تسجيل الخروج{" "}
-              </Button>
+                دخول{" "}
+              </Link>
             </>
-          ) : (
-            <Link
-              href={"/sign-in"}
-              className={`text-white bg-[#bda069] text-[20px] px-10 rounded-md font-bold py-3 w-full`}
-            >
-              دخول{" "}
-            </Link>
           )}
         </motion.nav>
       )}
