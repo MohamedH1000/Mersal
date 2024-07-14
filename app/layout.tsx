@@ -43,9 +43,8 @@ export default async function RootLayout({
           <div className="fixed bottom-20 left-10 z-50">
             {" "}
             <Fab
-              color="primary"
               aria-label="add"
-              className="bg-[#bda069] hover:bg-[#bda069]"
+              className="bg-[#bda069] hover:bg-[#bda069] text-white"
             >
               <WhatsAppIcon />
             </Fab>
