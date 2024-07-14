@@ -15,9 +15,9 @@ const page = async ({ searchParams }: any) => {
   });
   // console.log(FilteredChalets);
   // console.log(searchParams);
-  if (!currentUser) {
-    redirect("/sign-in");
-  }
+  // if (!currentUser) {
+  //   redirect("/sign-in");
+  // }
   return (
     <div
       className="min-h-screen mt-[130px] w-full

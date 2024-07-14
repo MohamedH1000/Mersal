@@ -83,7 +83,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     if (!reservation) {
       return null;
     }
-
+    console.log(reservation);
     const start = new Date(reservation?.startDate);
     const end = new Date(reservation?.endDate);
 
@@ -155,11 +155,23 @@ const ListingCard: React.FC<ListingCardProps> = ({
               <div className="grid gap-4 py-4">
                 <div className="flex justify-between items-center">
                   <Label className="text-right">الاسم</Label>
-                  <p>{reservation?.user?.name}</p>
+                  <p>
+                    {reservation?.user?.name
+                      ? reservation?.user?.name
+                      : reservation?.nameOfReserver}
+                  </p>
                 </div>
                 <div className="flex justify-between items-center">
                   <Label className="text-right">الايميل</Label>
-                  <p>{reservation?.user?.email}</p>
+                  <p>
+                    {reservation?.user?.email
+                      ? reservation?.user?.email
+                      : reservation?.email}
+                  </p>
+                </div>
+                <div className="flex justify-between items-center">
+                  <Label className="text-right">رقم الهاتف</Label>
+                  <p>{reservation?.phoneNumber}</p>
                 </div>
                 <div className="flex justify-between items-center">
                   <Label className="text-right">تاريخ الوصول:</Label>

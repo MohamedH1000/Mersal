@@ -47,8 +47,8 @@ const NavBar = ({ currentUser }: NavbarProps) => {
   }, []);
   return (
     <header
-      className={`h-[130px] w-full flex justify-between 
-      px-[150px] py-6 max-md:px-4 max-md:py-4 ${
+      className={`h-[121px] w-full flex justify-between 
+      px-[150px] py-6 max-md:px-4 max-md:py-4 max-sm:h-[106px] max-sm:py-3 ${
         isScrolled ? "shadow-lg duration-300" : "duration-300"
       }
     fixed top-0 z-10 bg-[#FFFFFF] items-center ${outfit.className}`}
@@ -218,7 +218,13 @@ const NavBar = ({ currentUser }: NavbarProps) => {
       <MobileNav open={open} setOpen={setOpen} currentUser={currentUser} />
 
       <Link href={"/"}>
-        <Image src={"/assets/icon.png"} alt="Logo" width={100} height={50} />
+        <Image
+          src={"/assets/icon.png"}
+          alt="Logo"
+          width={85}
+          height={90}
+          className="max-sm:w-[70px]"
+        />
       </Link>
     </header>
   );

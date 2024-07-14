@@ -51,24 +51,35 @@ const IndividualListing: React.FC<ListingClientProps> = ({
   });
   const [totalPrice, setTotalPrice] = useState(listing.price);
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
+  const [nameOfReserver, setNameOfReserver] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
   const router = useRouter();
   // console.log(formatISO(dateRange.startDate));
 
   const onCreateReservation = useCallback(async () => {
-    if (!currentUser) {
-      return toast({
-        title: "يجب تسجيل الدخول اولا",
-      });
-    }
     setIsLoading(true);
     try {
-      await createReservation({
-        totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        listingId: listing?.id,
-        servicePrice,
-      });
+      {
+        currentUser
+          ? await createReservation({
+              totalPrice,
+              startDate: dateRange.startDate,
+              endDate: dateRange.endDate,
+              listingId: listing?.id,
+              servicePrice,
+            })
+          : await createReservation({
+              totalPrice,
+              startDate: dateRange.startDate,
+              endDate: dateRange.endDate,
+              listingId: listing?.id,
+              nameOfReserver,
+              email,
+              phoneNumber,
+              servicePrice,
+            });
+      }
       toast({
         title: "تم حجز الشاليه",
         description:
@@ -155,6 +166,10 @@ const IndividualListing: React.FC<ListingClientProps> = ({
               onSubmit={onCreateReservation}
               disabled={isLoading}
               disableDates={disableDates}
+              currentUser={currentUser}
+              setNameOfReserver={setNameOfReserver}
+              setEmail={setEmail}
+              setPhoneNumber={setPhoneNumber}
             />
           </div>
         </div>

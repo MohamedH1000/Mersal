@@ -32,7 +32,7 @@ const page = async () => {
     );
   }
   return (
-    <div className="min-h-screen mt-[145px] px-[145px] max-md:px-5">
+    <div className="min-h-screen mt-[145px] px-[145px] max-md:px-5 mb-10">
       <ReservationClient
         reservations={reservations}
         currentUser={currentUser}

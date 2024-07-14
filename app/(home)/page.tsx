@@ -6,11 +6,16 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <main className="mt-[130px] main-background">
+    <main className="relative mt-[121px] h-[615px] max-md:h-[850px] max-md:pt-[120px]">
       <div
-        className="flex flex-col items-start justify-center 
-        gap-5 px-[200px] h-full max-md:px-5
-      max-md:items-center max-sm:items-center max-md:text-center"
+        className="absolute inset-0 bg-[url('/assets/mainbackground.jpg')] 
+      bg-fixed bg-cover bg-center bg-no-repeat brightness-50 main-background"
+        style={{ zIndex: -1 }}
+      ></div>
+      <div
+        className="relative flex flex-col items-start justify-center 
+      gap-5 px-[200px] h-full max-md:px-5 max-md:justify-start 
+    max-md:items-center max-sm:items-center max-md:text-center"
       >
         <motion.h1
           className="text-white font-black text-[65px] max-md:text-[40px]"
@@ -35,8 +40,8 @@ export default function Home() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <Button
-              className="bg-[#bda069] text-white
-            text-[25px] px-[45px] rounded-full font-bold py-8 mt-5"
+              className="bg-[#bda069] text-white max-md:text-[17px]
+          text-[25px] px-[45px] rounded-full font-bold py-8 mt-5 max-md:py-6"
             >
               احجز الان
             </Button>

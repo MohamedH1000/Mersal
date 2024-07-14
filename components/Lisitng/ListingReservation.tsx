@@ -1,7 +1,7 @@
 "use client";
 import { Range } from "react-date-range";
 
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Calender from "./Calender";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
@@ -17,6 +17,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { User } from "@prisma/client";
+import { Input } from "../ui/input";
 interface ListingReservationProps {
   price: number;
   dateRange: Range;
@@ -28,6 +30,10 @@ interface ListingReservationProps {
   isLoading: Boolean;
   servicePrice: any;
   setServicePrice: any;
+  currentUser: User | any;
+  setNameOfReserver: Dispatch<SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
+  setPhoneNumber: Dispatch<SetStateAction<string>>;
 }
 const ListingReservation: React.FC<ListingReservationProps> = ({
   price,
@@ -36,10 +42,14 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
   onChangeDate,
   onSubmit,
   disabled,
+  setNameOfReserver,
+  setEmail,
   disableDates,
   isLoading,
   servicePrice,
   setServicePrice,
+  currentUser,
+  setPhoneNumber,
 }) => {
   return (
     <motion.div
@@ -59,6 +69,37 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         disabledDates={disableDates}
         onChange={(value) => onChangeDate(value.selection)}
       />
+      {!currentUser && (
+        <>
+          <Separator />
+          <div className="flex flex-col px-4 py-4 gap-3">
+            <h1 className="text-[30px] font-medium max-md:text-[20px]">
+              بيانات المستخدم:
+            </h1>
+            <label htmlFor="name">الاسم</label>
+            <Input
+              name="name"
+              onChange={(e) => setNameOfReserver(e.target.value)}
+              placeholder="الاسم كامل"
+              required
+            />
+            <label htmlFor="email">الايميل</label>
+            <Input
+              name="email"
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="الايميل"
+              required
+            />
+            <label htmlFor="phonenumber">رقم الهاتف</label>
+            <Input
+              name="email"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              placeholder="رقم الهاتف"
+              required
+            />
+          </div>
+        </>
+      )}
       <Separator />
       <div className="flex flex-col items-start p-2 mt-5 gap-2">
         <h1 className="font-bold">هل ترغب في خدمات اضافية؟</h1>

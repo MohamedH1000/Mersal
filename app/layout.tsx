@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Tajawal } from "next/font/google";
+import Fab from "@mui/material/Fab";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import localFont from "@next/font/local";
+import Link from "next/link";
 
 // const tajawal = Tajawal({
 //   subsets: ["arabic"],
@@ -37,6 +39,18 @@ export default async function RootLayout({
       </head>
       <body style={{ fontFamily: "LBC-bold" }}>
         {children}
+        <Link href={"https://wa.me/+966580782229"} target="_blank">
+          <div className="fixed bottom-20 left-10 z-50">
+            {" "}
+            <Fab
+              color="primary"
+              aria-label="add"
+              className="bg-[#bda069] hover:bg-[#bda069]"
+            >
+              <WhatsAppIcon />
+            </Fab>
+          </div>
+        </Link>
         <Toaster />
       </body>
     </html>
