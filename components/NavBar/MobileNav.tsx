@@ -43,7 +43,7 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
           className="flex flex-col justify-center
         items-start gap-5 text-[20px]  bg-white py-10 
         border-[#bda069] border-[2px] px-10 absolute
-        top-[120px] right-0 w-full z-10 "
+        top-[120px] right-0 w-full z-10 max-sm:top-[106px]"
         >
           <Link
             href={"/"}
