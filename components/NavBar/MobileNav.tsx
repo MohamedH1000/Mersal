@@ -43,15 +43,13 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
           className="flex flex-col justify-center
         items-start gap-5 text-[20px]  bg-white py-10 
         border-[#bda069] border-[2px] px-10 absolute
-        top-[130px] right-0 w-full z-10 h-[300px] overflow-auto"
+        top-[130px] right-0 w-full z-10 "
         >
           <Link
             href={"/"}
             className={`${
               pathname === "/" ? "border-b-[2px] border-black" : ""
-            }hover:border-b-[2px] border-black x ${
-              currentUser ? "mt-[150px]" : "mt-0"
-            }`}
+            }hover:border-b-[2px] border-black x `}
             onClick={() => setOpen((prev: any) => !prev)}
           >
             الرئيسية
