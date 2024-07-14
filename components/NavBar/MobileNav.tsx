@@ -49,7 +49,9 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
             href={"/"}
             className={`${
               pathname === "/" ? "border-b-[2px] border-black" : ""
-            }hover:border-b-[2px] border-black mt-[220px]`}
+            }hover:border-b-[2px] border-black x ${
+              currentUser ? "mt-[150px]" : "mt-0"
+            }`}
             onClick={() => setOpen((prev: any) => !prev)}
           >
             الرئيسية
