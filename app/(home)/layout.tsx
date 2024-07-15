@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getCurrentUser } from "@/lib/action/user.action";
 
 export const metadata: Metadata = {
-  title: "Mersal",
+  title: "mersal | حجز شاليهاتي مع خدمات اضافية",
   description: "حجز شاليهاتي مع خدمات اضافية",
 };
 

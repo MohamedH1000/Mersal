@@ -37,7 +37,7 @@ export default async function RootLayout({
           type="text/javascript"
         ></script>
       </head>
-      <body style={{ fontFamily: "LBC-bold" }} className="min-h-screen">
+      <body style={{ fontFamily: "LBC-bold" }}>
         {children}
         <Link href={"https://wa.me/+966580782229"} target="_blank">
           <div className="fixed bottom-20 left-10 z-50">
