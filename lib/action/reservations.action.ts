@@ -14,9 +14,19 @@ export async function createReservation(params: any) {
     email,
     phoneNumber,
   } = params;
-
   if (!listingId || !startDate || !endDate || !totalPrice) {
-    throw new Error("تاكد من تعبئة البيانات");
+    return {
+      success: false,
+      message: "تأكد من تحديد تاريخ الحجز والبيانات الأساسية",
+    };
+  }
+  if (!currentUser) {
+    if (!email || !nameOfReserver || !phoneNumber) {
+      return {
+        success: false,
+        message: "تأكد من تعبئة البيانات التالية: الاسم، الايميل، رقم الهاتف",
+      };
+    }
   }
   let listingAndReservation;
   if (!currentUser) {
@@ -57,7 +67,7 @@ export async function createReservation(params: any) {
     });
   }
 
-  return listingAndReservation;
+  return { success: true, data: listingAndReservation };
 }
 
 export async function getReservations(params: any) {

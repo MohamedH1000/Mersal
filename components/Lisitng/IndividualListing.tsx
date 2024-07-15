@@ -4,11 +4,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import ListingHead from "./ListingHead";
 import ListingInfo from "./ListingInfo";
 import { useRouter } from "next/navigation";
-import {
-  differenceInCalendarDays,
-  eachDayOfInterval,
-  formatISO,
-} from "date-fns";
+import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useToast } from "../ui/use-toast";
 import ListingReservation from "./ListingReservation";
 import { Range } from "react-date-range";
@@ -59,17 +55,18 @@ const IndividualListing: React.FC<ListingClientProps> = ({
 
   const onCreateReservation = useCallback(async () => {
     setIsLoading(true);
+    let response;
     try {
       {
         currentUser
-          ? await createReservation({
+          ? (response = await createReservation({
               totalPrice,
               startDate: dateRange.startDate,
               endDate: dateRange.endDate,
               listingId: listing?.id,
               servicePrice,
-            })
-          : await createReservation({
+            }))
+          : (response = await createReservation({
               totalPrice,
               startDate: dateRange.startDate,
               endDate: dateRange.endDate,
@@ -78,26 +75,41 @@ const IndividualListing: React.FC<ListingClientProps> = ({
               email,
               phoneNumber,
               servicePrice,
-            });
+            }));
       }
+      if (!response.success) {
+        throw new Error("حدث خطا اثناء الحجز");
+      }
+      console.log(response);
       toast({
         title: "تم حجز الشاليه",
         description:
-          "بامكانك التوجه من خلال قائمة المستخدم الى رحلاتي لرؤية بيانات الحجز",
+          "لمتابعة الحجز او التعديل عليه او الغائه برجاء التواصل معنا عبر رقم الواتساب",
         className: "bg-[green] text-white",
       });
       setDateRange(initialDateRange);
       router.refresh();
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
       toast({
         title: "حدث خطا اثناء حجز الشاليه",
+        description: error.message,
         className: "bg-[red] text-white",
       });
     } finally {
       setIsLoading(false);
     }
-  }, [totalPrice, dateRange, listing?.id, router, currentUser]);
+  }, [
+    totalPrice,
+    dateRange,
+    listing?.id,
+    router,
+    currentUser,
+    servicePrice,
+    nameOfReserver,
+    email,
+    phoneNumber,
+  ]);
   // console.log("listing price", listing?.price);
   // console.log("here is the total price", totalPrice);
 

@@ -35,7 +35,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@radix-ui/react-menubar";
-import { Input } from "postcss";
+import Link from "next/link";
 
 interface ListingCardProps {
   data: Listing;
@@ -83,7 +83,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     if (!reservation) {
       return null;
     }
-    console.log(reservation);
+    // console.log(reservation);
     const start = new Date(reservation?.startDate);
     const end = new Date(reservation?.endDate);
 
@@ -128,7 +128,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
         {(typeOfListing === "myReservations" || typeOfListing === "trips") && (
           <div className="flex justify-between items-center font-bold">
             <p>حجز عن</p>
-            <p>{reservation?.user?.name}</p>
+            <p>
+              {reservation?.user?.name
+                ? reservation?.user?.name
+                : reservation?.nameOfReserver}
+            </p>
           </div>
         )}
         <div className="flex flex-row items-center gap-1 justify-between">
@@ -292,20 +296,41 @@ const ListingCard: React.FC<ListingCardProps> = ({
                 <AlertDialogTitle className="text-start">
                   {actionLabel === "قم بحذف الشاليه" &&
                     "هل انت متاكد من اتمام عملية الحذف"}
-                  {actionLabel === "الغاء الحجز" &&
-                    "هل انت متاكد بالغاء هذا الحجز ؟"}
+                  {actionLabel === "الغاء الحجز" && (
+                    <div>
+                      <h1> هل انت متاكد بالغاء هذا الحجز ؟</h1>
+                    </div>
+                  )}
+                  {actionLabel === "الغاء رحلتي" && (
+                    <div>
+                      <h1> هل انت متاكد بالغاء هذا الحجز ؟</h1>
+                      <p className="opacity-60">
+                        سيتم تحويلك الى صفحة واتساب للتواصل معنا لالغاء رحلتك
+                      </p>
+                    </div>
+                  )}
                 </AlertDialogTitle>
                 <AlertDialogDescription>
                   {actionLabel === "قم بحذف الشاليه" &&
                     "هذه العملية لا يمكن ارجاعها وسيتم حذف جميع الحجوزات المرتبطه بهذا الشاليه"}
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
-                <AlertDialogAction onClick={handleCancel}>
-                  تاكيد
-                </AlertDialogAction>
-                <AlertDialogCancel>الغاء</AlertDialogCancel>
-              </AlertDialogFooter>
+              {actionLabel === "الغاء الحجز" && (
+                <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
+                  <AlertDialogAction onClick={handleCancel}>
+                    تاكيد
+                  </AlertDialogAction>
+                  <AlertDialogCancel>الغاء</AlertDialogCancel>
+                </AlertDialogFooter>
+              )}
+              {actionLabel === "الغاء رحلتي" && (
+                <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
+                  <Link href={"https://wa.me/+966580782229"} target="_blank">
+                    <AlertDialogAction>تاكيد</AlertDialogAction>
+                  </Link>
+                  <AlertDialogCancel>الغاء</AlertDialogCancel>
+                </AlertDialogFooter>
+              )}
             </AlertDialogContent>
           </AlertDialog>
         )}

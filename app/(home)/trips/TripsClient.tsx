@@ -52,7 +52,7 @@ const TripsClient: React.FC<TripClientProps> = ({
             actionId={reservation.id}
             onAction={onCancel}
             disabled={deleteId === reservation.id}
-            actionLabel="الغاء الحجز"
+            actionLabel="الغاء رحلتي"
             currentUser={currentUser}
             typeOfListing="trips"
           />
