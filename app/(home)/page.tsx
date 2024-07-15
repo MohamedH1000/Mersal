@@ -26,7 +26,7 @@ export default function Home() {
           حجز شاليهات منتجع مرسال
         </motion.h1>
         <motion.p
-          className="text-white text-[17.5px] max-md:mt-[150px] font-bold"
+          className="text-white text-[17.5px] max-md:mt-[150px] font-bold max-sm:mt-[100px]"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}

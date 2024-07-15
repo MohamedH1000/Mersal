@@ -62,6 +62,7 @@ const page = ({ params }: Params) => {
         width={288}
         height={288}
         className="rounded-2xl cursor-pointer w-full aspect-square "
+        unoptimized
       />
       <div className="flex flex-col items-start justify-center gap-5 px-20 max-md:px-0 w-full">
         <h1 className="text-[40px] max-lg:text-[30px] font-medium">

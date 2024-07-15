@@ -224,6 +224,7 @@ const NavBar = ({ currentUser }: NavbarProps) => {
           width={85}
           height={90}
           className="max-sm:w-[70px]"
+          unoptimized
         />
       </Link>
     </header>

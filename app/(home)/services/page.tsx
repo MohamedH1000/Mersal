@@ -95,6 +95,7 @@ const page = () => {
                 width={288}
                 height={288}
                 className="h-[288px] rounded-2xl cursor-pointer"
+                unoptimized
               />
             </Link>
             <p className="font-bold text-[20px] mt-5">{product.name}</p>
