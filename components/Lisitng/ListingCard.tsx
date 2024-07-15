@@ -1,6 +1,6 @@
 "use client";
 import { Listing, Reservation } from "@prisma/client";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -18,13 +18,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+// import {
+//   Carousel,
+//   CarouselContent,
+//   CarouselItem,
+//   CarouselNext,
+//   CarouselPrevious,
+// } from "@/components/ui/carousel";
 import {
   Dialog,
   DialogContent,
@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@radix-ui/react-menubar";
 import Link from "next/link";
+import { Carousel } from "react-bootstrap";
 
 interface ListingCardProps {
   data: Listing;
@@ -58,7 +59,10 @@ const ListingCard: React.FC<ListingCardProps> = ({
   typeOfListing,
 }) => {
   const router = useRouter();
-
+  const [index, setIndex] = useState(0);
+  const handleSelect = (selectedIndex: any, e: any) => {
+    setIndex(selectedIndex);
+  };
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
@@ -99,23 +103,23 @@ const ListingCard: React.FC<ListingCardProps> = ({
     >
       <div className="flex flex-col gap-2 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl">
-          <Carousel className="relative w-full">
-            <CarouselContent>
-              {data.imageSrc?.map((image: string, index: number) => (
-                <CarouselItem key={index}>
-                  <div className="relative aspect-square w-full h-full">
-                    <Image
-                      src={image}
-                      alt={`Listing Image ${index + 1}`}
-                      className="object-cover h-full w-full group-hover:scale-110 transition"
-                      layout="fill"
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 z-0 bg-white p-2 rounded-full shadow-md cursor-pointer" />
-            <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 z-0 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+          <Carousel
+            className="relative w-full h-full"
+            activeIndex={index}
+            onSelect={handleSelect}
+            controls={true}
+            indicators={true}
+          >
+            {data.imageSrc?.map((image: string, i: number) => (
+              <Carousel.Item key={i} className="w-full h-full">
+                <Image
+                  src={image}
+                  alt={`Listing Image ${i + 1}`}
+                  className="object-cover group-hover:scale-110 transition"
+                  layout="fill"
+                />
+              </Carousel.Item>
+            ))}
           </Carousel>
 
           <div className="absolute top-3 right-3">
@@ -315,7 +319,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     "هذه العملية لا يمكن ارجاعها وسيتم حذف جميع الحجوزات المرتبطه بهذا الشاليه"}
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              {actionLabel === "الغاء الحجز" && (
+              {(actionLabel === "الغاء الحجز" ||
+                actionLabel === "قم بحذف الشاليه") && (
                 <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
                   <AlertDialogAction onClick={handleCancel}>
                     تاكيد

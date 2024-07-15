@@ -60,6 +60,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             alt="1"
             width={400}
             height={416}
+            unoptimized
             className="rounded-3xl w-[400px]
       h-[416px] max-sm:w-auto
       max-sm:h-auto"
@@ -76,6 +77,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             alt="1"
             width={400}
             height={416}
+            unoptimized
             className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
@@ -92,6 +94,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             alt="1"
             width={400}
             height={416}
+            unoptimized
             className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
@@ -110,6 +113,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             alt="1"
             width={400}
             height={416}
+            unoptimized
             className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
@@ -128,6 +132,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             alt="1"
             width={400}
             height={416}
+            unoptimized
             className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
@@ -146,6 +151,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             alt="1"
             width={400}
             height={416}
+            unoptimized
             className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
@@ -163,6 +169,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             alt="1"
             width={400}
             height={416}
+            unoptimized
             className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
