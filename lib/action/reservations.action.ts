@@ -21,10 +21,10 @@ export async function createReservation(params: any) {
     };
   }
   if (!currentUser) {
-    if (!email || !nameOfReserver || !phoneNumber) {
+    if (!nameOfReserver || !phoneNumber) {
       return {
         success: false,
-        message: "تأكد من تعبئة البيانات التالية: الاسم، الايميل، رقم الهاتف",
+        message: "تأكد من تعبئة البيانات التالية: الاسم، رقم الهاتف",
       };
     }
   }
