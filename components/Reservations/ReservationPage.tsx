@@ -221,13 +221,13 @@ max-md:items-center max-md:px-5"
         <div>
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d57246.310138776775!2d43.909122!3d26.265091!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1581fb9d8c4d2f1f%3A0x856bf7bd59078cbf!2z2YLYsdmK2Kkg2YXYsdiz2KfZhA!5e0!3m2!1sen!2sus!4v1720025132957!5m2!1sen!2sus"
-            width="600"
-            height="382"
+            width="100%"
+            height="100%"
             style={{ border: 0, borderRadius: "10px" }}
-            allowfullscreen=""
+            allow="fullscreen"
             loading="lazy"
-            className="max-sm:w-[250px] max-sm:h-[200px]"
-            referrerpolicy="no-referrer-when-downgrade"
+            className=" aspect-video w-[100%] h-[100%]"
+            allowFullScreen
           ></iframe>
         </div>
       </motion.div>
