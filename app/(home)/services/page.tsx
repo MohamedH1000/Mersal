@@ -103,7 +103,7 @@ const page = () => {
           </div>
         ))}
       </motion.div>
-      <div className="h-[460px] bg-[url('/assets/chairs.jpg')] bg-fixed bg-cover bg-center" />
+      <div className="h-[460px] bg-[url('/assets/chairs.jpg')] bg-scroll bg-cover bg-center" />
     </div>
   );
 };

@@ -121,7 +121,26 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
               >
                 المفضلة{" "}
               </Link>
-
+              <Link
+                href={"/services"}
+                className={`${
+                  pathname === "/services" ? "border-b-[2px] border-black" : ""
+                }hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                الخدمات الاضافية
+              </Link>
+              <Link
+                href={"/contact-us"}
+                className={`${
+                  pathname === "/contact-us"
+                    ? "border-b-[2px] border-black"
+                    : ""
+                }hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                اتصل بنا{" "}
+              </Link>
               <Button
                 className={`text-white bg-[#bda069] text-[20px] px-10 rounded-md font-bold py-3 w-full`}
                 onClick={() => {

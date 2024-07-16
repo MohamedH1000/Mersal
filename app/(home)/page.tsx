@@ -9,7 +9,7 @@ export default function Home() {
     <main className="relative mt-[121px] h-[615px] max-md:h-[850px] max-md:pt-[120px]">
       <div
         className="absolute inset-0 bg-[url('/assets/mainbackground.jpg')] 
-      bg-fixed bg-cover bg-center bg-no-repeat brightness-50 main-background "
+      bg-scroll bg-cover bg-center bg-no-repeat brightness-50 main-background "
         style={{ zIndex: -1 }}
       ></div>
       <div
