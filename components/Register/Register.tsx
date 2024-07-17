@@ -23,6 +23,7 @@ const Register = () => {
   const [registerData, setRegisterData] = useState({
     email: "",
     name: "",
+    phoneNumber: "",
     password: "",
   });
 
@@ -108,6 +109,14 @@ const Register = () => {
           type="name"
           onChange={(e) =>
             setRegisterData({ ...registerData, name: e.target.value })
+          }
+        />
+        <label htmlFor="phone">رقم الهاتف</label>
+        <Input
+          name="phone"
+          type="phone"
+          onChange={(e) =>
+            setRegisterData({ ...registerData, phoneNumber: e.target.value })
           }
         />
 
