@@ -33,31 +33,31 @@ const ListingHead: React.FC<ListingHeadProps> = ({
       viewport={{ once: true }}
     >
       <Carousel
-        className="relative w-auto h-full"
+        className="relative w-full h-full"
         opts={{
           loop: true,
         }}
         orientation="horizontal"
       >
-        <CarouselContent>
+        <CarouselContent className="flex-row-reverse w-full h-full">
           {imageSrc?.map((image: string, index: number) => (
             <CarouselItem
               key={index}
-              className="flex justify-center items-center aspect-video max-sm:aspect-square"
+              className="h-full w-full relative aspect-video max-sm:aspect-square"
             >
               <Image
                 src={image}
                 alt={`Listing Image ${index + 1}`}
-                className="w-full h-full "
-                layout="fill"
-                objectFit="cover"
+                className="object-cover"
+                fill
               />
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
-        <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+        <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+        <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md cursor-pointer" />
       </Carousel>
+
       <div className="absolute top-3 right-3">
         <HeartButton listingId={id} currentUser={currentUser} />
       </div>

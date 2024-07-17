@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import HeartButton from "./HeartButton";
 import { motion } from "framer-motion";
+import "./listings.css";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -70,6 +71,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     },
     [onAction, actionId, disabled]
   );
+
   // console.log(data.imageSrc);
   const price = useMemo(() => {
     if (reservation) {
@@ -103,15 +105,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
             opts={{
               loop: true,
             }}
+            orientation="horizontal"
           >
-            <CarouselContent>
+            <CarouselContent className="flex-row-reverse">
               {data.imageSrc?.map((image: string, index: number) => (
                 <CarouselItem key={index} className="relative aspect-square">
                   <Image
                     src={image}
                     alt={`Listing Image ${index + 1}`}
                     className="object-cover group-hover:scale-110 transition"
-                    layout="fill"
+                    fill
                   />
                 </CarouselItem>
               ))}
