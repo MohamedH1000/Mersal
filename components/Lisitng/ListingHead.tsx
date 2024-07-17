@@ -26,7 +26,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
 }) => {
   return (
     <motion.div
-      className="w-full h-[60vh] relative overflow-hidden rounded-xl border-[1px] shadow-md max-sm:h-[40vh]"
+      className="w-full h-full relative overflow-hidden rounded-xl border-[1px] shadow-md"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -39,12 +39,9 @@ const ListingHead: React.FC<ListingHeadProps> = ({
         }}
         orientation="horizontal"
       >
-        <CarouselContent className="flex-row-reverse w-full h-full">
+        <CarouselContent className="flex-row-reverse aspect-video">
           {imageSrc?.map((image: string, index: number) => (
-            <CarouselItem
-              key={index}
-              className="h-full w-full relative aspect-video max-sm:aspect-square"
-            >
+            <CarouselItem key={index} className="h-full w-full relative">
               <Image
                 src={image}
                 alt={`Listing Image ${index + 1}`}

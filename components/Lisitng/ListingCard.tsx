@@ -99,7 +99,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
       viewport={{ once: true }}
     >
       <div className="flex flex-col gap-2 w-full">
-        <div className="aspect-square w-full relative overflow-hidden rounded-xl border-[1px] shadow-md">
+        <div className="h-full w-full relative overflow-hidden rounded-xl border-[1px] shadow-md">
           <Carousel
             className="relative w-full"
             opts={{
