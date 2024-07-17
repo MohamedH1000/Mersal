@@ -78,7 +78,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
             }));
       }
       if (!response.success) {
-        throw new Error("حدث خطا اثناء الحجز");
+        throw new Error(response.message);
       }
       console.log(response);
       toast({
