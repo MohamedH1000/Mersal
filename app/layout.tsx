@@ -5,7 +5,6 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import localFont from "@next/font/local";
 import Link from "next/link";
-
 // const tajawal = Tajawal({
 //   subsets: ["arabic"],
 //   weight: ["200", "300", "400", "500", "700", "800", "900"],

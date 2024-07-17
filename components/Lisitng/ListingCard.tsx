@@ -1,6 +1,6 @@
 "use client";
 import { Listing, Reservation } from "@prisma/client";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -18,13 +18,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-// import {
-//   Carousel,
-//   CarouselContent,
-//   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious,
-// } from "@/components/ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 import {
   Dialog,
   DialogContent,
@@ -36,7 +36,6 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@radix-ui/react-menubar";
 import Link from "next/link";
-import { Carousel } from "react-bootstrap";
 
 interface ListingCardProps {
   data: Listing;
@@ -59,10 +58,6 @@ const ListingCard: React.FC<ListingCardProps> = ({
   typeOfListing,
 }) => {
   const router = useRouter();
-  const [index, setIndex] = useState(0);
-  const handleSelect = (selectedIndex: any, e: any) => {
-    setIndex(selectedIndex);
-  };
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
@@ -102,24 +97,27 @@ const ListingCard: React.FC<ListingCardProps> = ({
       viewport={{ once: true }}
     >
       <div className="flex flex-col gap-2 w-full">
-        <div className="aspect-square w-full relative overflow-hidden rounded-xl">
+        <div className="aspect-square w-full relative overflow-hidden rounded-xl border-[1px] shadow-md">
           <Carousel
-            className="relative w-full h-full"
-            activeIndex={index}
-            onSelect={handleSelect}
-            controls={true}
-            indicators={true}
+            className="relative w-full"
+            opts={{
+              loop: true,
+            }}
           >
-            {data.imageSrc?.map((image: string, i: number) => (
-              <Carousel.Item key={i} className="w-full h-full">
-                <Image
-                  src={image}
-                  alt={`Listing Image ${i + 1}`}
-                  className="object-cover group-hover:scale-110 transition"
-                  layout="fill"
-                />
-              </Carousel.Item>
-            ))}
+            <CarouselContent>
+              {data.imageSrc?.map((image: string, index: number) => (
+                <CarouselItem key={index} className="relative aspect-square">
+                  <Image
+                    src={image}
+                    alt={`Listing Image ${index + 1}`}
+                    className="object-cover group-hover:scale-110 transition"
+                    layout="fill"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+            <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 z-10 bg-white p-2 rounded-full shadow-md cursor-pointer" />
           </Carousel>
 
           <div className="absolute top-3 right-3">
