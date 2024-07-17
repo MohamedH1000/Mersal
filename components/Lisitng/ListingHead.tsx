@@ -39,7 +39,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({
         }}
         orientation="horizontal"
       >
-        <CarouselContent className="flex-row-reverse aspect-video">
+        <CarouselContent className="flex-row-reverse aspect-video h-full w-full">
           {imageSrc?.map((image: string, index: number) => (
             <CarouselItem key={index} className="h-full w-full relative">
               <Image
