@@ -78,7 +78,7 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("tw-elements/plugin.cjs")],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 
 export default config;
