@@ -91,8 +91,8 @@ const IndividualListing: React.FC<ListingClientProps> = ({
       toast({
         title: "تم حجز الشاليه",
         description:
-          "لمتابعة الحجز او التعديل عليه او الغائه برجاء التواصل معنا عبر رقم الواتساب",
-        className: "bg-[green] text-white",
+          "لمتابعة الحجز يمكنك الاستعلام عن الحجز من الشريط العلوي او للتعديل او الالغاء برجاء التواصل معنا عبر رقم الواتساب",
+        className: "bg-[#bda069] text-white",
       });
       setDateRange(initialDateRange);
       router.refresh();

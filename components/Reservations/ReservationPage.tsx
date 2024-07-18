@@ -19,7 +19,7 @@ const ReservationPage = () => {
           شاليه مرسال
         </motion.h1>
         <motion.p
-          className="w-[500px] font-bold mt-5 max-sm:w-[250px]"
+          className="w-[50%] font-bold mt-5 max-sm:w-[88%]"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, delay: 0.3 }}

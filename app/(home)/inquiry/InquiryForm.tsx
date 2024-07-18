@@ -7,6 +7,10 @@ const InquiryForm = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    try {
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="w-[60%] border-[1px] border-[#bda069] rounded-md shadow-md p-4 max-md:w-full">
