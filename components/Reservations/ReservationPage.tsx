@@ -38,7 +38,7 @@ const ReservationPage = () => {
           <Link href={"/reservation/system"}>
             <Button
               className="bg-white text-black rounded-3xl font-bold hover:text-white transition
-      w-[164px] h-[56px] mt-5 text-[20px] border-[black] border-[1px] duration-300"
+              w-[164px] h-[56px] mt-5 text-[20px] border-[black] border-[1px] duration-300"
             >
               احجز الان
             </Button>
@@ -47,7 +47,7 @@ const ReservationPage = () => {
       </div>
       <div
         className="mt-20 flex justify-center items-start gap-3 flex-wrap
-max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
+        max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
       >
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -62,8 +62,8 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
             height={416}
             unoptimized
             className="rounded-3xl w-[400px]
-      h-[416px] max-sm:w-auto
-      max-sm:h-auto"
+            h-[416px] max-sm:w-auto
+            max-sm:h-auto"
           />
         </motion.div>
         <motion.div
@@ -190,10 +190,10 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
           <iframe
             src="https://player.vimeo.com/video/969955200"
             className="mt-10
-      max-sm:w-[250px] max-sm:h-[200px]
-      max-md:w-[500px] max-md:h-[350px]
-      rounded-md
-      "
+            max-sm:w-[250px] max-sm:h-[200px]
+            max-md:w-[500px] max-md:h-[350px]
+            rounded-md
+           "
             frameborder="0"
             webkitallowfullscreen
             mozallowfullscreen
@@ -205,7 +205,7 @@ max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
       </motion.div>
       <motion.div
         className="mt-20 flex justify-evenly items-start gap-10 max-md:flex-col
-max-md:items-center max-md:px-5"
+        max-md:items-center max-md:px-5"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
@@ -218,7 +218,7 @@ max-md:items-center max-md:px-5"
           <p className="font-bold">ساعات</p>
           <p className="font-bold">مفتوح طوال الأسبوع</p>
         </div>
-        <div>
+        <div className="h-full w-full">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d57246.310138776775!2d43.909122!3d26.265091!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1581fb9d8c4d2f1f%3A0x856bf7bd59078cbf!2z2YLYsdmK2Kkg2YXYsdiz2KfZhA!5e0!3m2!1sen!2sus!4v1720025132957!5m2!1sen!2sus"
             width="100%"
@@ -226,7 +226,7 @@ max-md:items-center max-md:px-5"
             style={{ border: 0, borderRadius: "10px" }}
             allow="fullscreen"
             loading="lazy"
-            className=" aspect-video w-[100%] h-[100%]"
+            className="aspect-video w-[100%] h-[100%]"
             allowFullScreen
           ></iframe>
         </div>
