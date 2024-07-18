@@ -1,6 +1,8 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { getCurrentUser } from "./user.action";
+import { Resend } from "resend";
+import EmailTemplate from "@/components/EmailTemplate/EmailTemplate";
 
 export async function createReservation(params: any) {
   const currentUser = await getCurrentUser();
@@ -68,6 +70,32 @@ export async function createReservation(params: any) {
   }
 
   return { success: true, data: listingAndReservation };
+}
+
+export async function sendEmail(params: any) {
+  const { startDate, endDate, nameOfReserver, email, phoneNumber } = params;
+  const message = "شكرا لك للحجز على موقعنا ";
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: "Mersal <mersall.ksa@gmail.com>",
+      to: [email],
+      subject: "بيانات حجز منتجع مرسال",
+      react: EmailTemplate({
+        startDate,
+        endDate,
+        nameOfReserver,
+        phoneNumber,
+        message,
+      }),
+    });
+    return {
+      success: true,
+      message: "تم ارسال الايميل بنجاح",
+    };
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function getReservations(params: any) {

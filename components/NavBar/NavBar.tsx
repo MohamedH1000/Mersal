@@ -111,6 +111,23 @@ const NavBar = ({ currentUser }: NavbarProps) => {
         <motion.div
           initial={{ opacity: 0, x: 10 }}
           animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <Link
+            href={"/inquiry"}
+            className={`${
+              pathname === "/inquiry"
+                ? "border-b-[2px] border-black"
+                : "hover:border-b-[2px] border-black"
+            }`}
+          >
+            للاستعلام عن الحجز{" "}
+          </Link>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true }}
         >

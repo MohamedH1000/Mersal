@@ -8,7 +8,7 @@ import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import { useToast } from "../ui/use-toast";
 import ListingReservation from "./ListingReservation";
 import { Range } from "react-date-range";
-import { createReservation } from "@/lib/action/reservations.action";
+import { createReservation, sendEmail } from "@/lib/action/reservations.action";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -77,10 +77,17 @@ const IndividualListing: React.FC<ListingClientProps> = ({
               servicePrice,
             }));
       }
+      // await sendEmail({
+      //   startDate: dateRange.startDate,
+      //   endDate: dateRange.endDate,
+      //   nameOfReserver,
+      //   email,
+      //   phoneNumber,
+      // });
       if (!response.success) {
         throw new Error(response.message);
       }
-      console.log(response);
+      // console.log(response);
       toast({
         title: "تم حجز الشاليه",
         description:

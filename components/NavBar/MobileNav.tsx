@@ -131,6 +131,15 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
                 الخدمات الاضافية
               </Link>
               <Link
+                href={"/inquiry"}
+                className={`${
+                  pathname === "/inquiry" ? "border-b-[2px] border-black" : ""
+                } hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                للاستعلام عن الحجز{" "}
+              </Link>
+              <Link
                 href={"/contact-us"}
                 className={`${
                   pathname === "/contact-us"
@@ -161,6 +170,15 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
                 onClick={() => setOpen((prev: any) => !prev)}
               >
                 الخدمات الاضافية
+              </Link>
+              <Link
+                href={"/inquiry"}
+                className={`${
+                  pathname === "/inquiry" ? "border-b-[2px] border-black" : ""
+                } hover:border-b-[2px] border-black`}
+                onClick={() => setOpen((prev: any) => !prev)}
+              >
+                للاستعلام عن الحجز{" "}
               </Link>
               <Link
                 href={"/contact-us"}

@@ -84,7 +84,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     if (!reservation) {
       return null;
     }
-    // console.log(reservation);
+    console.log(reservation);
     const start = new Date(reservation?.startDate);
     const end = new Date(reservation?.endDate);
 
@@ -133,6 +133,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
         <div className="font-light text-neutral-500">
           {reservationDate || ""}
+        </div>
+        <div className="flex justify-center items-center font-bold text-[18px]">
+          {data?.title}
         </div>
         {(typeOfListing === "myReservations" || typeOfListing === "trips") && (
           <div className="flex justify-between items-center font-bold">
