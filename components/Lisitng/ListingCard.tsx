@@ -105,7 +105,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           }
         >
           <Carousel
-            className="relative w-full"
+            className="relative w-full h-full"
             opts={{
               loop: true,
             }}
