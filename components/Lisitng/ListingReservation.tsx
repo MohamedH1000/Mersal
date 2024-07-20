@@ -6,6 +6,8 @@ import Calender from "./Calender";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -91,12 +93,18 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               required
             />
             <label htmlFor="phonenumber">رقم الهاتف</label>
-            <Input
-              name="email"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              placeholder="رقم الهاتف"
-              required
-            />
+            <div dir="ltr">
+              <PhoneInput
+                name="phoneNumber"
+                defaultCountry="US"
+                international
+                withCountryCallingCode
+                onChange={setPhoneNumber}
+                placeholder="رقم هاتفك"
+                required
+                className="border-[1px] border-[#bda069] p-3 rounded-md focus:outline-none !important"
+              />
+            </div>
           </div>
         </>
       )}

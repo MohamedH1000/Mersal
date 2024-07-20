@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import { getCurrentUser } from "./user.action";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/EmailTemplate/EmailTemplate";
+import twilio from "twilio";
 
 export async function createReservation(params: any) {
   const currentUser = await getCurrentUser();
@@ -97,17 +98,39 @@ export async function sendEmail(params: any) {
     console.log(error);
   }
 }
+export async function sendSMS(params: any) {
+  const accountSid = process.env.ACCOUNT_ID;
+  const authToken = process.env.AUTH_TOKEN;
+  const client = twilio(accountSid, authToken);
 
+  const { phoneNumber, reservation } = params;
+  try {
+    const result = await client.messages.create({
+      body: reservation.nameOfReserver,
+      from: "+13312156493",
+      to: phoneNumber,
+    });
+    return { success: true, data: result };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "لا يوجد حجوزات خاصة بهذا الرقم",
+    };
+  }
+}
 export async function getReservations(params: any) {
   try {
-    const { listingId, userId, authorId } = params;
+    const { listingId, userId, authorId, phoneNumber } = params;
 
     const query: any = {};
 
     if (listingId) {
       query.listingId = listingId;
     }
-
+    if (phoneNumber) {
+      query.phoneNumber = phoneNumber;
+    }
     if (userId) {
       query.userId = userId;
     }
