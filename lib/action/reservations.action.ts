@@ -101,21 +101,30 @@ export async function sendEmail(params: any) {
 export async function sendSMS(params: any) {
   const accountSid = process.env.ACCOUNT_ID;
   const authToken = process.env.AUTH_TOKEN;
-  const client = twilio(accountSid, authToken);
 
-  const { phoneNumber, reservation } = params;
+  if (!accountSid || !authToken) {
+    console.error("Twilio credentials are not set properly.");
+    return { success: false, message: "Twilio credentials are missing." };
+  }
+
+  const client = require("twilio")(accountSid, authToken);
+  const { phoneNumber, message } = params;
+
   try {
+    // console.log(`Sending SMS to ${phoneNumber}`);
     const result = await client.messages.create({
-      body: reservation.nameOfReserver,
+      body: message,
       from: "+13312156493",
       to: phoneNumber,
     });
+    // console.log("SMS sent successfully", result);
     return { success: true, data: result };
   } catch (error) {
-    console.log(error);
+    console.error("Error sending SMS:", error);
     return {
       success: false,
-      message: "لا يوجد حجوزات خاصة بهذا الرقم",
+      message: "Failed to send SMS.",
+      error: error?.message,
     };
   }
 }

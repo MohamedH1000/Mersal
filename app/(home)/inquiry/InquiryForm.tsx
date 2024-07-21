@@ -5,19 +5,22 @@ import React, { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-
+import { motion } from "framer-motion";
 const InquiryForm = () => {
   const { toast } = useToast();
   const [phoneNumber, setPhoneNumber] = useState("");
-  // console.log(phoneNumber);
   const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
       const reservation = await getReservations(phoneNumber);
-      //   console.log(reservation);
-      const response = await sendSMS({ phoneNumber, reservation });
+      const message = `Hi ${reservation[0]?.nameOfReserver}`;
+
+      const response = await sendSMS({ phoneNumber, message });
+      // console.log("SMS response", response);
       if (!response.success) {
         throw new Error("لا يوجد حجوزات خاصة بهذا الرقم");
       }
@@ -35,7 +38,13 @@ const InquiryForm = () => {
     }
   };
   return (
-    <div className="w-[60%] border-[1px] border-[#bda069] rounded-md shadow-md p-4 max-md:w-full">
+    <motion.div
+      className="w-[60%] border-[1px] border-[#bda069] rounded-md shadow-md p-4 max-md:w-full"
+      initial={{ y: 300, opacity: 0 }}
+      whileInView={{ y: 0, opacity: 100 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3 }}
+    >
       <h1 className="font-bold text-[20px] max-sm:text-[15px]">
         برجاء ادخال رقم هاتفك للاستعلام عن الحجز
       </h1>
@@ -63,7 +72,7 @@ const InquiryForm = () => {
           {isLoading ? "برجاء الانتظار" : "استعلام"}
         </Button>
       </form>
-    </div>
+    </motion.div>
   );
 };
 
