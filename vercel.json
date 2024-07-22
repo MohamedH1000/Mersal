@@ -4,5 +4,22 @@
       "source": "/api/:path*",
       "destination": "/api/:path*"
     }
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "https://mersal-ksa.vercel.app/"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
   ]
 }
