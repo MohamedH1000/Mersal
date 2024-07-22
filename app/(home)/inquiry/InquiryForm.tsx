@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
 import { motion } from "framer-motion";
+import { format } from "date-fns";
 const InquiryForm = () => {
   const { toast } = useToast();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -17,22 +18,57 @@ const InquiryForm = () => {
 
     try {
       const reservation = await getReservations(phoneNumber);
-      const message = `Hi ${reservation[0]?.nameOfReserver}`;
+      if (!reservation) {
+        throw new Error("لا يوجد حجوزات خاصة بهذا الرقم");
+      }
+      const message = `
+      اهلا بك ${
+        reservation[0].nameOfReserver || reservation[0].user.name
+      } معنا في منتجع مرسال
+      بيانات الحجز الخاصة بك :
+      تاريخ الوصول : ${format(reservation[0]?.startDate, "PP")}
+      تاريخ المغادرة: ${format(reservation[0].endDate, "PP")}
+      الخدمات الاضافية:
+      ${
+        !reservation[0].servicePrice.chairPrice ||
+        !reservation[0].servicePrice.coffeePrice ||
+        !reservation[0].servicePrice.sweetPrice ||
+        !reservation[0].servicePrice.tablePrice
+          ? "لا يوجد خدمات اضافية"
+          : `${
+              reservation[0].servicePrice.chairPrice &&
+              `كراسي حفلات: ${reservation[0].servicePrice.chairPrice * 200}`
+            }
+        ${
+          reservation[0].servicePrice.coffeePrice &&
+          `ضيافة قهوة: ${reservation[0].servicePrice.coffeePrice * 250}`
+        }
+        ${
+          reservation[0].servicePrice.sweetPrice &&
+          `ضيافة حلى: ${reservation[0].servicePrice.sweetPrice * 150}`
+        }
+        ${
+          reservation[0].servicePrice.tablePrice &&
+          `سهرة طعام: ${reservation[0].servicePrice.tablePrice * 100}`
+        }`
+      }
+      السعر: ${reservation[0].totalPrice} ريال`;
 
       const response = await sendSMS({ phoneNumber, message });
       // console.log("SMS response", response);
       if (!response.success) {
-        throw new Error("لا يوجد حجوزات خاصة بهذا الرقم");
+        throw new Error("حدث خطا اثناء الاستعلام عن الحجز");
       }
       toast({
         title: "تم ارسال رساله نصية الى هاتفك ببيانات الحجز الخاصة بك",
         className: "bg-[#bda069] text-white",
       });
     } catch (error) {
-      toast({
-        title: error?.message,
-        className: "bg-[red] text-white",
-      });
+      console.log(error);
+      // toast({
+      //   title: error?.message,
+      //   className: "bg-[red] text-white",
+      // });
     } finally {
       setIsLoading(false);
     }

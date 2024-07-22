@@ -114,13 +114,13 @@ export async function sendSMS(params: any) {
     // console.log(`Sending SMS to ${phoneNumber}`);
     const result = await client.messages.create({
       body: message,
-      from: "+13312156493",
+      from: "+19128752057",
       to: phoneNumber,
     });
     // console.log("SMS sent successfully", result);
     return { success: true, data: result };
   } catch (error) {
-    console.error("Error sending SMS:", error);
+    console.log("Error sending SMS:", error);
     return {
       success: false,
       message: "Failed to send SMS.",
