@@ -14,13 +14,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { createChalet } from "@/lib/action/chalet.action";
-import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 const AddChaletDialog = ({ currentUser }: any) => {
   const router = useRouter();
-  const pathname = usePathname();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +30,6 @@ const AddChaletDialog = ({ currentUser }: any) => {
     imageSrc: [],
     description: "",
     title: "",
-    pathname,
   });
   // console.log("chalet details", chaletDetails);
   if (currentUser?.role !== "admin") router.push("/");

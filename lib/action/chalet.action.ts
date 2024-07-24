@@ -11,12 +11,11 @@ export async function createChalet(params: any) {
   const {
     title,
     description,
-    imageSrc,
+    imageSrc = [],
     roomCount,
     bathroomCount,
     guestCount,
     price,
-    pathname,
   } = params;
   const listing = await prisma.listing.create({
     data: {
@@ -31,7 +30,7 @@ export async function createChalet(params: any) {
     },
   });
 
-  revalidatePath(pathname);
+  revalidatePath("/addchalet");
 
   return listing;
 }
