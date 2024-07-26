@@ -61,7 +61,7 @@ const ReservationNav = () => {
     [router, guestCount, leaveDate, arriveDate, searchParams]
   );
   return (
-    <div className="flex flex-col max-md:items-center">
+    <div className="flex flex-col max-md:items-center md:items-start">
       <motion.h1
         className="text-[40px] font-bold max-md:text-center max-md:text-[30px]"
         initial={{ y: 40, opacity: 0 }}

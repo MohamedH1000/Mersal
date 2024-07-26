@@ -21,7 +21,7 @@ const page = async ({ searchParams }: any) => {
   return (
     <div
       className="min-h-screen mt-[130px] w-full
-    px-[150px] max-md:px-5 flex flex-col items-center"
+    px-[150px] max-md:px-5 flex flex-col items-center md:items-start"
     >
       <ReservationNav />
 
