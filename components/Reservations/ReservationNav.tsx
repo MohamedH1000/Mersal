@@ -79,14 +79,14 @@ const ReservationNav = () => {
 max-md:w-[500px] max-sm:w-full px-5 py-2 border-[1px] shadow-lg 
 flex justify-between items-center rounded-md max-lg:flex-col max-lg:h-auto"
       >
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 max-sm:w-full">
           <h1>حدد تاريخ الوصول :</h1>
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[280px] justify-start text-left font-normal max-md:w-[200px]",
+                  "w-[280px] justify-start text-left font-normal max-md:w-[200px] max-sm:w-full",
                   !arriveDate && "text-muted-foreground"
                 )}
               >
@@ -108,14 +108,14 @@ flex justify-between items-center rounded-md max-lg:flex-col max-lg:h-auto"
             </PopoverContent>
           </Popover>
         </div>
-        <div className="flex flex-col gap-3 mr-5 max-md:mr-0">
+        <div className="flex flex-col gap-3 mr-5 max-md:mr-0 max-sm:w-full">
           <h1>حدد تاريخ المغادرة :</h1>
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant={"outline"}
                 className={cn(
-                  "w-[280px] justify-start text-left font-normal max-md:w-[200px]",
+                  "w-[280px] justify-start text-left font-normal max-md:w-[200px] max-sm:w-full",
                   !leaveDate && "text-muted-foreground"
                 )}
               >
@@ -137,7 +137,7 @@ flex justify-between items-center rounded-md max-lg:flex-col max-lg:h-auto"
             </PopoverContent>
           </Popover>
         </div>
-        <div className="flex flex-col gap-3 mr-5 max-md:mr-0">
+        {/* <div className="flex flex-col gap-3 mr-5 max-md:mr-0">
           <div className="flex justify-center items-center gap-4 max-md:flex-col">
             <div className="flex flex-col">
               <label htmlFor="adults" className="mb-2">
@@ -179,15 +179,17 @@ flex justify-between items-center rounded-md max-lg:flex-col max-lg:h-auto"
               />
             </div>
           </div>
+        </div> */}
+        <div className="max-sm:w-full flex justify-center items-center">
+          <Button
+            className="mt-9 bg-[#bda069] text-white max-sm:w-full
+          hover:text-[#bda069] hover:border-[#bda069] border-[1px] 
+                hover:bg-white transition duration-300 font-bold sm:mr-5"
+            type="submit"
+          >
+            بحث
+          </Button>
         </div>
-        <Button
-          className="mt-9 bg-[#bda069] text-white 
-        hover:text-[#bda069] hover:border-[#bda069] border-[1px] 
-      hover:bg-white transition duration-300 font-bold mr-5"
-          type="submit"
-        >
-          بحث
-        </Button>
       </motion.form>
     </div>
   );
