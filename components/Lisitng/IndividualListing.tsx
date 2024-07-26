@@ -65,6 +65,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
               endDate: dateRange.endDate,
               listingId: listing?.id,
               servicePrice,
+              phoneNumber,
             }))
           : (response = await createReservation({
               totalPrice,

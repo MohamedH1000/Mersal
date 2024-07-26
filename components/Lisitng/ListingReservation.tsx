@@ -71,7 +71,7 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         disabledDates={disableDates}
         onChange={(value) => onChangeDate(value.selection)}
       />
-      {!currentUser && (
+      {!currentUser ? (
         <>
           <Separator />
           <div className="flex flex-col px-4 py-4 gap-3">
@@ -107,6 +107,22 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             </div>
           </div>
         </>
+      ) : (
+        <div className="px-4 mb-5">
+          <label htmlFor="phonenumber">رقم الهاتف (الزامي)</label>
+          <div dir="ltr" className="mt-2">
+            <PhoneInput
+              name="phoneNumber"
+              defaultCountry="US"
+              international
+              withCountryCallingCode
+              onChange={setPhoneNumber}
+              placeholder="رقم هاتفك"
+              required
+              className="border-[1px] border-[#bda069] p-3 rounded-md focus:outline-none !important"
+            />
+          </div>
+        </div>
       )}
       <Separator />
       <div className="flex flex-col items-start p-2 mt-5 gap-2">

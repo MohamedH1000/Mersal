@@ -113,3 +113,33 @@ const InquiryForm = () => {
 };
 
 export default InquiryForm;
+
+// this is in future if needed
+// const now = new Date(); // Get the current date
+
+// const message = reservation
+//   .filter(res => new Date(res.endDate) > now) // Filter reservations by end date
+//   .map(res => `
+//     اهلا بك ${res.nameOfReserver || res.user.name} معنا في منتجع مرسال
+//     بيانات الحجز الخاصة بك:
+//     تاريخ الوصول: ${format(res?.startDate, "PP")}
+//     تاريخ المغادرة: ${format(res.endDate, "PP")}
+//     الخدمات الاضافية:
+//     ${
+//       !res.servicePrice.chairPrice &&
+//       !res.servicePrice.coffeePrice &&
+//       !res.servicePrice.sweetPrice &&
+//       !res.servicePrice.tablePrice
+//         ? "لا يوجد خدمات اضافية"
+//         : `
+//         ${res.servicePrice.chairPrice ? `كراسي حفلات: ${res.servicePrice.chairPrice * 200}` : ''}
+//         ${res.servicePrice.coffeePrice ? `ضيافة قهوة: ${res.servicePrice.coffeePrice * 250}` : ''}
+//         ${res.servicePrice.sweetPrice ? `ضيافة حلى: ${res.servicePrice.sweetPrice * 150}` : ''}
+//         ${res.servicePrice.tablePrice ? `سهرة طعام: ${res.servicePrice.tablePrice * 100}` : ''}
+//         `
+//     }
+//     السعر: ${res.totalPrice} ريال
+//   `)
+//   .join('\n\n'); // Join all reservation messages with double new lines
+
+// console.log(message);

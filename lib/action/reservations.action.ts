@@ -17,7 +17,7 @@ export async function createReservation(params: any) {
     email,
     phoneNumber,
   } = params;
-  if (!listingId || !startDate || !endDate || !totalPrice) {
+  if (!listingId || !startDate || !endDate || !totalPrice || !phoneNumber) {
     return {
       success: false,
       message: "تأكد من تحديد تاريخ الحجز والبيانات الأساسية",
@@ -63,6 +63,7 @@ export async function createReservation(params: any) {
             endDate,
             totalPrice,
             servicePrice,
+            phoneNumber,
             userId: currentUser.id,
           },
         },
@@ -114,7 +115,7 @@ export async function sendSMS(params: any) {
     // console.log(`Sending SMS to ${phoneNumber}`);
     const result = await client.messages.create({
       body: message,
-      from: "+19128752057",
+      from: "+966581454332",
       to: phoneNumber,
     });
     // console.log("SMS sent successfully", result);
