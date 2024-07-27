@@ -1,6 +1,6 @@
 "use client";
 import { User } from "@prisma/client";
-import React from "react";
+import React, { Suspense } from "react";
 import HeartButton from "./HeartButton";
 import { motion } from "framer-motion";
 import {
@@ -32,28 +32,30 @@ const ListingHead: React.FC<ListingHeadProps> = ({
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
     >
-      <Carousel
-        className="relative w-full h-full"
-        opts={{
-          loop: true,
-        }}
-        orientation="horizontal"
-      >
-        <CarouselContent className="flex-row-reverse aspect-video h-full w-full">
-          {imageSrc?.map((image: string, index: number) => (
-            <CarouselItem key={index} className="h-full w-full relative">
-              <Image
-                src={image}
-                alt={`Listing Image ${index + 1}`}
-                objectFit="cover"
-                fill
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
-        <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
-      </Carousel>
+      <Suspense>
+        <Carousel
+          className="relative w-full h-full"
+          opts={{
+            loop: true,
+          }}
+          orientation="horizontal"
+        >
+          <CarouselContent className="flex-row-reverse aspect-video h-full w-full">
+            {imageSrc?.map((image: string, index: number) => (
+              <CarouselItem key={index} className="h-full w-full relative">
+                <Image
+                  src={image}
+                  alt={`Listing Image ${index + 1}`}
+                  objectFit="cover"
+                  fill
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+          <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+        </Carousel>
+      </Suspense>
 
       <div className="absolute top-3 right-3">
         <HeartButton listingId={id} currentUser={currentUser} />

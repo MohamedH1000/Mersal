@@ -1,6 +1,6 @@
 "use client";
 import { Listing, Reservation } from "@prisma/client";
-import React, { useCallback, useMemo } from "react";
+import React, { Suspense, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -104,28 +104,30 @@ const ListingCard: React.FC<ListingCardProps> = ({
             "aspect-square relative overflow-hidden rounded-xl border-[1px] shadow-md h-full"
           }
         >
-          <Carousel
-            className="relative w-full h-full"
-            opts={{
-              loop: true,
-            }}
-            orientation="horizontal"
-          >
-            <CarouselContent className="flex-row-reverse">
-              {data.imageSrc?.map((image: string, index: number) => (
-                <CarouselItem key={index} className="relative aspect-square">
-                  <Image
-                    src={image}
-                    alt={`Listing Image ${index + 1}`}
-                    className="object-cover group-hover:scale-110 transition"
-                    fill
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
-            <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
-          </Carousel>
+          <Suspense>
+            <Carousel
+              className="relative w-full h-full"
+              opts={{
+                loop: true,
+              }}
+              orientation="horizontal"
+            >
+              <CarouselContent className="flex-row-reverse">
+                {data.imageSrc?.map((image: string, index: number) => (
+                  <CarouselItem key={index} className="relative aspect-square">
+                    <Image
+                      src={image}
+                      alt={`Listing Image ${index + 1}`}
+                      className="object-cover group-hover:scale-110 transition"
+                      fill
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+              <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+            </Carousel>
+          </Suspense>
 
           <div className="absolute top-3 right-3">
             <HeartButton listingId={data?.id} currentUser={currentUser} />

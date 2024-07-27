@@ -4,6 +4,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
+import { Suspense } from "react";
 
 const ReservationPage = () => {
   return (
@@ -45,137 +46,139 @@ const ReservationPage = () => {
           </Link>
         </motion.div>
       </div>
-      <div
-        className="mt-20 flex justify-center items-start gap-3 flex-wrap
+      <Suspense>
+        <div
+          className="mt-20 flex justify-center items-start gap-3 flex-wrap
         max-sm:flex-col max-sm:items-center max-md:px-5 w-full"
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
         >
-          <Image
-            src={"/assets/1.jpg"}
-            alt="1"
-            width={400}
-            height={416}
-            unoptimized
-            className="rounded-3xl w-[400px]
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Image
+              src={"/assets/1.jpg"}
+              alt="1"
+              width={400}
+              height={416}
+              unoptimized
+              className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
-          />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <Image
-            src={"/assets/mainbackground.jpg"}
-            alt="1"
-            width={400}
-            height={416}
-            unoptimized
-            className="rounded-3xl w-[400px]
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Image
+              src={"/assets/mainbackground.jpg"}
+              alt="1"
+              width={400}
+              height={416}
+              unoptimized
+              className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
-          />
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <Image
-            src={"/assets/2.jpeg"}
-            alt="1"
-            width={400}
-            height={416}
-            unoptimized
-            className="rounded-3xl w-[400px]
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Image
+              src={"/assets/2.jpeg"}
+              alt="1"
+              width={400}
+              height={416}
+              unoptimized
+              className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
-          />
-        </motion.div>
+            />
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          {" "}
-          <Image
-            src={"/assets/3.jpeg"}
-            alt="1"
-            width={400}
-            height={416}
-            unoptimized
-            className="rounded-3xl w-[400px]
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            {" "}
+            <Image
+              src={"/assets/3.jpeg"}
+              alt="1"
+              width={400}
+              height={416}
+              unoptimized
+              className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
-          />
-        </motion.div>
+            />
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          {" "}
-          <Image
-            src={"/assets/4.jpeg"}
-            alt="1"
-            width={400}
-            height={416}
-            unoptimized
-            className="rounded-3xl w-[400px]
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            {" "}
+            <Image
+              src={"/assets/4.jpeg"}
+              alt="1"
+              width={400}
+              height={416}
+              unoptimized
+              className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
-          />
-        </motion.div>
+            />
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          {" "}
-          <Image
-            src={"/assets/5.jpeg"}
-            alt="1"
-            width={400}
-            height={416}
-            unoptimized
-            className="rounded-3xl w-[400px]
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            {" "}
+            <Image
+              src={"/assets/5.jpeg"}
+              alt="1"
+              width={400}
+              height={416}
+              unoptimized
+              className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
-          />
-        </motion.div>
+            />
+          </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <Image
-            src={"/assets/6.jpeg"}
-            alt="1"
-            width={400}
-            height={416}
-            unoptimized
-            className="rounded-3xl w-[400px]
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Image
+              src={"/assets/6.jpeg"}
+              alt="1"
+              width={400}
+              height={416}
+              unoptimized
+              className="rounded-3xl w-[400px]
             h-[416px] max-sm:w-auto
             max-sm:h-auto"
-          />
-        </motion.div>
-      </div>
+            />
+          </motion.div>
+        </div>
+      </Suspense>
       <motion.div
         className="mt-20 flex flex-col items-center"
         initial={{ opacity: 0, y: 50 }}

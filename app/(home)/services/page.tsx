@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import {
   Select,
   SelectContent,
@@ -77,32 +77,34 @@ const page = () => {
           </Select>
         </div>
       </div>
-      <motion.div
-        className="grid grid-cols-4 justify-items-center
+      <Suspense>
+        <motion.div
+          className="grid grid-cols-4 justify-items-center
           gap-2 mt-10 w-full mb-10 px-[150px]
           max-md:px-5 max-lg:grid-cols-2 max-sm:grid-cols-1"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        {products.map((product, i) => (
-          <div key={i}>
-            <Link href={`/services/${product.id}`}>
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={288}
-                height={288}
-                className="h-[288px] rounded-2xl cursor-pointer"
-                unoptimized
-              />
-            </Link>
-            <p className="font-bold text-[20px] mt-5">{product.name}</p>
-            <p>SR{product.price}</p>
-          </div>
-        ))}
-      </motion.div>
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          {products.map((product, i) => (
+            <div key={i}>
+              <Link href={`/services/${product.id}`}>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={288}
+                  height={288}
+                  className="h-[288px] rounded-2xl cursor-pointer"
+                  unoptimized
+                />
+              </Link>
+              <p className="font-bold text-[20px] mt-5">{product.name}</p>
+              <p>SR{product.price}</p>
+            </div>
+          ))}
+        </motion.div>
+      </Suspense>
       <div className="h-[460px] bg-[url('/assets/chairs.jpg')] bg-scroll bg-cover bg-center" />
     </div>
   );
