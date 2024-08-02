@@ -206,8 +206,8 @@ const ReservationPage = () => {
         </div>
       </motion.div>
       <motion.div
-        className="mt-20 flex justify-evenly items-start gap-10 max-md:flex-col
-        max-md:items-center max-md:px-5"
+        className="mt-20 flex justify-between items-start gap-[50px] max-md:flex-col
+        max-md:items-center max-md:px-5 w-full px-[145px]"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
