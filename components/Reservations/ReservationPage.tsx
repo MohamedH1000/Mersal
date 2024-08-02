@@ -193,9 +193,8 @@ const ReservationPage = () => {
           <iframe
             src="https://player.vimeo.com/video/969955200"
             className="mt-10
-            max-sm:w-[250px] max-sm:h-[200px]
-            max-md:w-[500px] max-md:h-[350px]
-            rounded-md
+            max-md:aspect-video max-md:w-full max-md:px-5
+            rounded-md max-sm:mt-0
            "
             frameborder="0"
             webkitallowfullscreen
@@ -217,8 +216,11 @@ const ReservationPage = () => {
         <div>
           <h1 className="font-bold text-[40px]">منتجع مرسال</h1>
           <p>احجز شاليهات مع خدمات اضافية معها لتجربة مريحة ومميزة.</p>
+          <p className="max-md:block md:hidden mt-20 font-bold text-xl">
+            العنوان
+          </p>
           <p className="font-bold">القصيم بريده</p>
-          <p className="font-bold">ساعات</p>
+          <p className="font-bold mt-10 text-xl">ساعات</p>
           <p className="font-bold">مفتوح طوال الأسبوع</p>
         </div>
         <div className="h-full w-full">
