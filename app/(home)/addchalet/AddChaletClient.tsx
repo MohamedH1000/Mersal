@@ -10,7 +10,7 @@ const AddChaletClient = ({ allChalets, currentUser }: any) => {
   const { toast } = useToast();
   const [deleteId, setDeleteId] = useState("");
 
-  const onCancel = useCallback(
+  const onDelete = useCallback(
     async (id: string) => {
       setDeleteId(id);
       try {
@@ -44,8 +44,9 @@ max-md:grid-cols-2 max-sm:grid-cols-1 md:grid-cols-2 mb-10"
             actionId={chalet.id}
             currentUser={currentUser}
             actionLabel="قم بحذف الشاليه"
-            onAction={onCancel}
+            onDeleteChalet={onDelete}
             disabled={deleteId === chalet.id}
+            typeOfListing="Listings"
           />
         );
       })}

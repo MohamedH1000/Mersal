@@ -43,6 +43,7 @@ interface ListingCardProps {
   onAction?: (id: string) => void;
   onConfirmed?: (id: string) => void;
   onDeleted?: (id: string) => void;
+  onDeleteChalet?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
@@ -57,6 +58,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   actionLabel,
   onConfirmed,
   onDeleted,
+  onDeleteChalet,
   actionId = "",
   currentUser,
   typeOfListing,
@@ -96,6 +98,18 @@ const ListingCard: React.FC<ListingCardProps> = ({
       }
 
       onDeleted?.(actionId);
+    },
+    [onAction, actionId, disabled]
+  );
+  const handleDeleteChalet = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+
+      if (disabled) {
+        return;
+      }
+
+      onDeleteChalet?.(actionId);
     },
     [onAction, actionId, disabled]
   );
@@ -332,6 +346,15 @@ const ListingCard: React.FC<ListingCardProps> = ({
             قم بالحجز الان
           </Button>
         )}
+        {typeOfListing === "Listings" && (
+          <Button
+            onClick={() => router.push(`/listings/${data.id}`)}
+            className="bg-[#bda069] text-white border-[#bda069]
+ hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+          >
+            قم بالحجز الان
+          </Button>
+        )}
 
         {typeOfListing === "favourite" && (
           <Button
@@ -354,103 +377,124 @@ const ListingCard: React.FC<ListingCardProps> = ({
               تاكيد الحجز للعميل
             </Button>
           )}
-        {onAction && actionLabel && (
-          <AlertDialog>
-            {actionLabel === "الغاء رحلتي" &&
-              reservation.status !== "canceled" && (
+        {(onAction || onDeleted || onConfirmed || onDeleteChalet) &&
+          actionLabel && (
+            <AlertDialog>
+              {actionLabel === "الغاء رحلتي" &&
+                reservation.status !== "canceled" && (
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      disabled={disabled}
+                      className="bg-[#bda069] text-white border-[#bda069]
+          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+                    >
+                      {actionLabel}
+                    </Button>
+                  </AlertDialogTrigger>
+                )}
+              {actionLabel === "الغاء الحجز" &&
+                reservation.status !== "canceled" && (
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      disabled={disabled}
+                      className="bg-[#bda069] text-white border-[#bda069]
+          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+                    >
+                      {actionLabel}
+                    </Button>
+                  </AlertDialogTrigger>
+                )}
+              {actionLabel === "حذف الحجز" &&
+                reservation.status === "canceled" && (
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      disabled={disabled}
+                      className="bg-[#bda069] text-white border-[#bda069]
+          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+                    >
+                      {actionLabel}
+                    </Button>
+                  </AlertDialogTrigger>
+                )}
+              {actionLabel === "قم بحذف الشاليه" && (
                 <AlertDialogTrigger asChild>
                   <Button
                     disabled={disabled}
                     className="bg-[#bda069] text-white border-[#bda069]
-          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+          hover:text-[#bda069] hover:bg-[white]
+          hover:border-[1px] transition duration-300 font-bold"
                   >
                     {actionLabel}
                   </Button>
                 </AlertDialogTrigger>
               )}
-            {actionLabel === "الغاء الحجز" &&
-              reservation.status !== "canceled" && (
-                <AlertDialogTrigger asChild>
-                  <Button
-                    disabled={disabled}
-                    className="bg-[#bda069] text-white border-[#bda069]
-          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
-                  >
-                    {actionLabel}
-                  </Button>
-                </AlertDialogTrigger>
-              )}
-            {actionLabel === "حذف الحجز" &&
-              reservation.status === "canceled" && (
-                <AlertDialogTrigger asChild>
-                  <Button
-                    disabled={disabled}
-                    className="bg-[#bda069] text-white border-[#bda069]
-          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
-                  >
-                    {actionLabel}
-                  </Button>
-                </AlertDialogTrigger>
-              )}
-            <AlertDialogContent
-              dir="rtl"
-              className="flex flex-col items-start rounded-md"
-            >
-              <AlertDialogHeader dir="rtl">
-                <AlertDialogTitle className="text-start">
-                  {actionLabel === "قم بحذف الشاليه" &&
-                    "هل انت متاكد من اتمام عملية الحذف"}
-                  {actionLabel === "الغاء الحجز" && (
-                    <div>
-                      <h1> هل انت متاكد بالغاء هذا الحجز ؟</h1>
-                    </div>
-                  )}
-                  {actionLabel === "حذف الحجز" && (
-                    <div>
-                      <h1> هل انت متاكد من حذف هذا الحجز ؟</h1>
-                    </div>
-                  )}
-                  {actionLabel === "الغاء رحلتي" && (
-                    <div>
-                      <h1> هل انت متاكد بالغاء هذا الحجز ؟</h1>
-                      <p className="opacity-60">
-                        سيتم تحويلك الى صفحة واتساب للتواصل معنا لالغاء رحلتك
-                      </p>
-                    </div>
-                  )}
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  {actionLabel === "قم بحذف الشاليه" &&
-                    "هذه العملية لا يمكن ارجاعها وسيتم حذف جميع الحجوزات المرتبطه بهذا الشاليه"}
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              {actionLabel === "الغاء الحجز" && (
-                <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
-                  <AlertDialogAction onClick={handleCancel}>
-                    تاكيد
-                  </AlertDialogAction>
-                  <AlertDialogCancel>الغاء</AlertDialogCancel>
-                </AlertDialogFooter>
-              )}
-              {actionLabel === "حذف الحجز" && (
-                <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
-                  <AlertDialogAction onClick={handleDelete}>
-                    تاكيد
-                  </AlertDialogAction>
-                  <AlertDialogCancel>الغاء</AlertDialogCancel>
-                </AlertDialogFooter>
-              )}
-              {actionLabel === "الغاء رحلتي" && (
-                <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
-                  <Link href={"https://wa.me/+966580782229"} target="_blank">
-                    <AlertDialogAction>تاكيد</AlertDialogAction>
-                  </Link>
-                  <AlertDialogCancel>الغاء</AlertDialogCancel>
-                </AlertDialogFooter>
-              )}
-            </AlertDialogContent>
-          </AlertDialog>
-        )}
+              <AlertDialogContent
+                dir="rtl"
+                className="flex flex-col items-start rounded-md"
+              >
+                <AlertDialogHeader dir="rtl">
+                  <AlertDialogTitle className="text-start">
+                    {actionLabel === "قم بحذف الشاليه" &&
+                      "هل انت متاكد من اتمام عملية الحذف"}
+                    {actionLabel === "الغاء الحجز" && (
+                      <div>
+                        <h1> هل انت متاكد بالغاء هذا الحجز ؟</h1>
+                      </div>
+                    )}
+                    {actionLabel === "حذف الحجز" && (
+                      <div>
+                        <h1> هل انت متاكد من حذف هذا الحجز ؟</h1>
+                      </div>
+                    )}
+                    {actionLabel === "الغاء رحلتي" && (
+                      <div>
+                        <h1> هل انت متاكد بالغاء هذا الحجز ؟</h1>
+                        <p className="opacity-60">
+                          سيتم تحويلك الى صفحة واتساب للتواصل معنا لالغاء رحلتك
+                        </p>
+                      </div>
+                    )}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {actionLabel === "قم بحذف الشاليه" &&
+                      "هذه العملية لا يمكن ارجاعها وسيتم حذف جميع الحجوزات المرتبطه بهذا الشاليه"}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                {actionLabel === "الغاء الحجز" && (
+                  <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
+                    <AlertDialogAction onClick={handleCancel}>
+                      تاكيد
+                    </AlertDialogAction>
+                    <AlertDialogCancel>الغاء</AlertDialogCancel>
+                  </AlertDialogFooter>
+                )}
+                {actionLabel === "حذف الحجز" && (
+                  <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
+                    <AlertDialogAction onClick={handleDelete}>
+                      تاكيد
+                    </AlertDialogAction>
+                    <AlertDialogCancel>الغاء</AlertDialogCancel>
+                  </AlertDialogFooter>
+                )}
+                {actionLabel === "قم بحذف الشاليه" && (
+                  <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
+                    <AlertDialogAction onClick={handleDeleteChalet}>
+                      تاكيد
+                    </AlertDialogAction>
+                    <AlertDialogCancel>الغاء</AlertDialogCancel>
+                  </AlertDialogFooter>
+                )}
+                {actionLabel === "الغاء رحلتي" && (
+                  <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
+                    <Link href={"https://wa.me/+966580782229"} target="_blank">
+                      <AlertDialogAction>تاكيد</AlertDialogAction>
+                    </Link>
+                    <AlertDialogCancel>الغاء</AlertDialogCancel>
+                  </AlertDialogFooter>
+                )}
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
       </div>
     </motion.div>
   );
