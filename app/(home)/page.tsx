@@ -33,7 +33,7 @@ export default function Home() {
         >
           احجز شاليه مع خدمات اضافية مميزة على موقعنا الجديد الان
         </motion.p>
-        <Link href={"/reservation"}>
+        <Link href={"/reservation/system"}>
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
