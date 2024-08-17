@@ -185,6 +185,12 @@ const NavBar = ({ currentUser }: NavbarProps) => {
                           </MenubarItem>
                         </Link>
                         <MenubarSeparator />
+                        <Link href={`/reservation/canceled-reservations`}>
+                          <MenubarItem className="cursor-pointer">
+                            الحجوزات الملغية
+                          </MenubarItem>
+                        </Link>
+                        <MenubarSeparator />
                       </>
                     )}
                     <Link href={`/trips`}>

@@ -6,7 +6,9 @@ import TripsClient from "./TripsClient";
 const page = async () => {
   const currentUser = await getCurrentUser();
   const reservation = await getReservations({ userId: currentUser?.id });
-
+  const totalReservations = reservation.filter(
+    (res) => res.status !== "canceled"
+  );
   if (!currentUser) {
     return (
       <div className="min-h-screen mt-[145px] px-[150px]">
@@ -16,7 +18,7 @@ const page = async () => {
       </div>
     );
   }
-  if (reservation.length === 0) {
+  if (reservation?.length === 0) {
     return (
       <div className="min-h-screen mt-[145px] px-[145px] max-md:px-5">
         <h1 className="text-[40px] max-md:text-[30px]">لا يوجد رحلات</h1>

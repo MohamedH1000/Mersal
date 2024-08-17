@@ -4,6 +4,7 @@ import { getCurrentUser } from "./user.action";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/EmailTemplate/EmailTemplate";
 import twilio from "twilio";
+import { revalidatePath } from "next/cache";
 
 export async function createReservation(params: any) {
   const currentUser = await getCurrentUser();
@@ -15,6 +16,7 @@ export async function createReservation(params: any) {
     servicePrice,
     nameOfReserver,
     email,
+    status,
     phoneNumber,
   } = params;
   if (!listingId || !startDate || !endDate || !totalPrice || !phoneNumber) {
@@ -45,6 +47,7 @@ export async function createReservation(params: any) {
             totalPrice,
             servicePrice,
             nameOfReserver,
+            status,
             email,
             phoneNumber,
           },
@@ -64,6 +67,7 @@ export async function createReservation(params: any) {
             totalPrice,
             servicePrice,
             phoneNumber,
+            status,
             userId: currentUser.id,
           },
         },
@@ -177,11 +181,36 @@ export async function getReservations(params: any) {
   }
 }
 
+export async function cancelReservation(params: any) {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser.role !== "admin") {
+    throw new Error("هذه العملية خاصة بالادمن فقط");
+  }
+
+  const { reservationId } = params;
+
+  if (!reservationId || typeof reservationId !== "string") {
+    throw new Error("Invalid ID");
+  }
+
+  const reservation = await prisma.reservation.update({
+    where: {
+      id: reservationId,
+    },
+    data: {
+      status: "canceled",
+    },
+  });
+
+  return reservation;
+}
+
 export async function deleteReservation(params: any) {
   const currentUser = await getCurrentUser();
 
-  if (!currentUser) {
-    throw new Error("يجب ان تسجل دخولك لالغاء الحجز");
+  if (currentUser.role !== "admin") {
+    throw new Error("هذه العملية خاصة بالادمن فقط");
   }
 
   const { reservationId } = params;
@@ -193,9 +222,33 @@ export async function deleteReservation(params: any) {
   const reservation = await prisma.reservation.deleteMany({
     where: {
       id: reservationId,
-      OR: [{ userId: currentUser.id }, { listing: { userId: currentUser.id } }],
     },
   });
 
+  return reservation;
+}
+
+export async function confirmReservation(params: any) {
+  const currentUser = await getCurrentUser();
+
+  if (currentUser.role !== "admin") {
+    throw new Error("هذه العملية خاصة بالادمن فقط");
+  }
+
+  const { reservationId } = params;
+
+  if (!reservationId || typeof reservationId !== "string") {
+    throw new Error("Invalid ID");
+  }
+
+  const reservation = await prisma.reservation.update({
+    where: {
+      id: reservationId,
+    },
+    data: {
+      status: "confirmed",
+    },
+  });
+  revalidatePath("/reservation/all-reservations");
   return reservation;
 }

@@ -28,13 +28,15 @@ const IndividualListing: React.FC<ListingClientProps> = ({
   const { toast } = useToast();
   const disableDates = useMemo(() => {
     let dates: Date[] = [];
-    reservations.forEach((reservations: any) => {
-      const range = eachDayOfInterval({
-        start: new Date(reservations.startDate),
-        end: new Date(reservations.endDate),
+    reservations
+      .filter((res: any) => res.status !== "canceled")
+      .forEach((reservations: any) => {
+        const range = eachDayOfInterval({
+          start: new Date(reservations.startDate),
+          end: new Date(reservations.endDate),
+        });
+        dates = [...dates, ...range];
       });
-      dates = [...dates, ...range];
-    });
     return dates;
   }, [reservations]);
 
@@ -65,6 +67,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
               endDate: dateRange.endDate,
               listingId: listing?.id,
               servicePrice,
+              status: "pending",
               phoneNumber,
             }))
           : (response = await createReservation({
@@ -74,6 +77,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
               listingId: listing?.id,
               nameOfReserver,
               email,
+              status: "pending",
               phoneNumber,
               servicePrice,
             }));

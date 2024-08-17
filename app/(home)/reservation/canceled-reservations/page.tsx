@@ -2,7 +2,6 @@ import React from "react";
 import { getCurrentUser } from "@/lib/action/user.action";
 import { getReservations } from "@/lib/action/reservations.action";
 import ReservationClient from "./ReservationClient";
-import { getAllChalets } from "@/lib/action/chalet.action";
 
 const page = async () => {
   const currentUser = await getCurrentUser();
@@ -17,14 +16,26 @@ const page = async () => {
       </div>
     );
   }
-  const allChalets = await getAllChalets();
 
+  const reservations = await getReservations({
+    authorId: currentUser.id,
+  });
+
+  if (reservations.length === 0) {
+    return (
+      <div className="min-h-screen mt-[145px] px-[145px] max-md:px-5">
+        <h1 className="text-[40px] max-md:[30px] font-medium">
+          لا يوجد حجوزات
+        </h1>
+        <p className="opacity-60">يبدو انه لا يوجد حجوزات حتى الان</p>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen mt-[145px] px-[145px] max-md:px-5 mb-10">
       <ReservationClient
-        // reservations={reservations}
+        reservations={reservations}
         currentUser={currentUser}
-        chalets={allChalets}
       />
     </div>
   );

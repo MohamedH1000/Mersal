@@ -101,6 +101,19 @@ const MobileNav = ({ open, setOpen, currentUser }: NavbarProps) => {
                   الحجوزات{" "}
                 </Link>
               )}
+              {currentUser.role === "admin" && (
+                <Link
+                  href={`/reservation/canceled-reservations`}
+                  className={`${
+                    pathname === "/reservation/canceled-reservations"
+                      ? "border-b-[2px] border-black"
+                      : ""
+                  }hover:border-b-[2px] border-black`}
+                  onClick={() => setOpen((prev: any) => !prev)}
+                >
+                  الحجوزات الملغية{" "}
+                </Link>
+              )}
               <Link
                 href={`/trips`}
                 className={`${

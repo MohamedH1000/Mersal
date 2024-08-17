@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { use, useCallback, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import ListingCard from "@/components/Lisitng/ListingCard";
-import { deleteReservation } from "@/lib/action/reservations.action";
+import { cancelReservation } from "@/lib/action/reservations.action";
 interface TripClientProps {
   reservations: Reservation;
   currentUser: User | null;
@@ -21,7 +21,7 @@ const TripsClient: React.FC<TripClientProps> = ({
     async (id: string) => {
       setDeleteId(id);
       try {
-        await deleteReservation({ reservationId: id });
+        await cancelReservation({ reservationId: id });
         toast({
           title: "تم الغاء الحجز بنجاح",
           className: "bg-[green] text-white",

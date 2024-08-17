@@ -1,69 +1,45 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
-import { Listing, User } from "@prisma/client";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Reservation, User } from "@prisma/client";
 import {
   cancelReservation,
   confirmReservation,
-  getReservations,
+  deleteReservation,
 } from "@/lib/action/reservations.action";
 import ListingCard from "@/components/Lisitng/ListingCard";
-import ReactBigCalender from "./components/react-big-calender";
 interface ReservationClientProps {
+  reservations: Reservation | null;
   currentUser: User | null;
-  chalets: Listing | any;
 }
 const ReservationClient: React.FC<ReservationClientProps> = ({
+  reservations,
   currentUser,
-  chalets,
 }) => {
   const router = useRouter();
   const { toast } = useToast();
+  const [cancelId, setCancelId] = useState("");
   const [deleteId, setDeleteId] = useState("");
   const [confirmedId, setConfirmedId] = useState("");
-  const [listingId, setListingId] = useState("");
-  const [allReservations, setAllReservations] = useState<any[]>([]);
 
-  useEffect(() => {
-    const fetchReservations = async () => {
-      const response = await getReservations({
-        listingId,
-      });
-      setAllReservations(response);
-    };
-
-    fetchReservations();
-  }, [listingId]);
-  const reservations = allReservations?.filter(
-    (reservation: any) => reservation.status !== "canceled"
-  );
-  // console.log(listingId);
-  // console.log(allReservations);
   const onCancel = useCallback(
     async (id: string) => {
-      setDeleteId(id);
+      setCancelId(id);
       try {
         await cancelReservation({ reservationId: id });
         toast({
           title: "تم الغاء الحجز ",
           className: "bg-[green] text-white",
         });
-        window.location.reload();
+        router.refresh();
       } catch (error) {
         toast({
           title: "حدثت مشكلة اثناء الغاء الحجز",
           className: "bg-[red] text-white",
         });
       } finally {
-        setDeleteId("");
+        setCancelId("");
       }
     },
     [router]
@@ -77,7 +53,7 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
           title: "تم تاكيد الحجز",
           className: "bg-[green] text-white",
         });
-        window.location.reload();
+        router.refresh();
       } catch (error) {
         toast({
           title: "حدثت مشكلة اثناء تاكيد الحجز",
@@ -89,30 +65,34 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
     },
     [router]
   );
-  // console.log(chalets);
+  const onDeleted = useCallback(
+    async (id: string) => {
+      setDeleteId(id);
+      try {
+        await deleteReservation({ reservationId: id });
+        toast({
+          title: "تم حذف الحجز",
+          className: "bg-[green] text-white",
+        });
+        router.refresh();
+      } catch (error) {
+        toast({
+          title: "حدثت مشكلة اثناء حذف الحجز",
+          className: "bg-[red] text-white",
+        });
+      } finally {
+        setDeleteId("");
+      }
+    },
+    [router]
+  );
   return (
     <div>
       <h1 className="text-[40px] max-md:text-[30px] font-medium">الحجوزات</h1>
       <p className="opacity-60">الحجوزات الخاصة بوحداتك</p>
-      <div className="mt-10 flex justify-start items-center gap-2">
-        <label htmlFor="chaletSelection">اختر الشاليه</label>
-        <Select onValueChange={(value: any) => setListingId(value)} dir="rtl">
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="اختر" />
-          </SelectTrigger>
-          <SelectContent>
-            {chalets.map((chalet: any, i: any) => (
-              <SelectItem value={chalet.id} key={i}>
-                {chalet.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
-      <ReactBigCalender allReservations={allReservations} />
       <div className="mt-10 grid  sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-8">
         {reservations
-          ?.filter((res: any) => res.status !== "canceled")
+          ?.filter((res: any) => res.status === "canceled")
           .map((reservation: any) => (
             <ListingCard
               key={reservation.id}
@@ -121,10 +101,13 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
               actionId={reservation.id}
               onAction={onCancel}
               onConfirmed={onConfirmed}
+              onDeleted={onDeleted}
               disabled={
-                deleteId === reservation?.id || confirmedId === reservation?.id
+                deleteId === reservation?.id ||
+                confirmedId === reservation?.id ||
+                cancelId === reservation?.id
               }
-              actionLabel="الغاء الحجز"
+              actionLabel="حذف الحجز"
               currentUser={currentUser}
               typeOfListing="myReservations"
             />

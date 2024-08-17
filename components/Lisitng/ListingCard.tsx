@@ -41,6 +41,8 @@ interface ListingCardProps {
   data: Listing;
   reservation?: Reservation | any;
   onAction?: (id: string) => void;
+  onConfirmed?: (id: string) => void;
+  onDeleted?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
@@ -53,6 +55,8 @@ const ListingCard: React.FC<ListingCardProps> = ({
   onAction,
   disabled,
   actionLabel,
+  onConfirmed,
+  onDeleted,
   actionId = "",
   currentUser,
   typeOfListing,
@@ -70,8 +74,33 @@ const ListingCard: React.FC<ListingCardProps> = ({
     },
     [onAction, actionId, disabled]
   );
+  const handleConfirm = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
 
-  // console.log(data.imageSrc);
+      if (disabled) {
+        return;
+      }
+
+      onConfirmed?.(actionId);
+    },
+    [onAction, actionId, disabled]
+  );
+
+  const handleDelete = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+
+      if (disabled) {
+        return;
+      }
+
+      onDeleted?.(actionId);
+    },
+    [onAction, actionId, disabled]
+  );
+
+  // console.log(data.imageSrc.length);
   const price = useMemo(() => {
     if (reservation) {
       return reservation?.totalPrice;
@@ -123,8 +152,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
-              <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+              {data?.imageSrc?.length > 1 && (
+                <>
+                  <CarouselPrevious className="absolute top-1/2 left-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+                  <CarouselNext className="absolute top-1/2 right-3 transform -translate-y-1/2 -z-1 bg-white p-2 rounded-full shadow-md cursor-pointer" />
+                </>
+              )}
             </Carousel>
           </Suspense>
 
@@ -139,18 +172,36 @@ const ListingCard: React.FC<ListingCardProps> = ({
           {data?.title}
         </div>
         {(typeOfListing === "myReservations" || typeOfListing === "trips") && (
-          <div className="flex justify-between items-center font-bold">
-            <p>حجز عن</p>
-            <p>
-              {reservation?.user?.name
-                ? reservation?.user?.name
-                : reservation?.nameOfReserver}
-            </p>
-          </div>
+          <>
+            <div className="flex justify-between items-center font-bold">
+              <p>حجز عن</p>
+              <p>
+                {reservation?.user?.name
+                  ? reservation?.user?.name
+                  : reservation?.nameOfReserver}
+              </p>
+            </div>
+            <div className="flex justify-between items-center">
+              <p className="font-bold">حالة الحجز</p>
+              <div>
+                {reservation?.status === "pending" && (
+                  <p className="opacity-80">معلق</p>
+                )}
+                {reservation?.status === "canceled" && (
+                  <p className="text-[red]">ملغي</p>
+                )}
+                {reservation?.status === "confirmed" && (
+                  <p className="text-[green]">مؤكد</p>
+                )}
+              </div>
+            </div>
+          </>
         )}
         <div className="flex flex-row items-center gap-1 justify-between">
-          <div className="font-semibold">SAR {data.price}</div>
-          {!reservation && <div className="font-light">لكل ليلة</div>}
+          <div className="font-semibold">السعر</div>
+          <div className="font-light">
+            <span className="font-bold">{data.price} SAR</span> لكل ليلة
+          </div>
         </div>
         {(typeOfListing === "myReservations" || typeOfListing === "trips") && (
           <Dialog>
@@ -281,6 +332,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             قم بالحجز الان
           </Button>
         )}
+
         {typeOfListing === "favourite" && (
           <Button
             onClick={() => router.push(`/listings/${data.id}`)}
@@ -290,17 +342,56 @@ const ListingCard: React.FC<ListingCardProps> = ({
             عرض التفاصيل
           </Button>
         )}
+        {typeOfListing === "myReservations" &&
+          reservation?.status !== "confirmed" &&
+          reservation?.status !== "canceled" && (
+            <Button
+              disabled={disabled}
+              onClick={handleConfirm}
+              className="bg-[green] text-white border-[green]
+ hover:text-[green] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+            >
+              تاكيد الحجز للعميل
+            </Button>
+          )}
         {onAction && actionLabel && (
           <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button
-                disabled={disabled}
-                className="bg-[#bda069] text-white border-[#bda069]
+            {actionLabel === "الغاء رحلتي" &&
+              reservation.status !== "canceled" && (
+                <AlertDialogTrigger asChild>
+                  <Button
+                    disabled={disabled}
+                    className="bg-[#bda069] text-white border-[#bda069]
           hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
-              >
-                {actionLabel}
-              </Button>
-            </AlertDialogTrigger>
+                  >
+                    {actionLabel}
+                  </Button>
+                </AlertDialogTrigger>
+              )}
+            {actionLabel === "الغاء الحجز" &&
+              reservation.status !== "canceled" && (
+                <AlertDialogTrigger asChild>
+                  <Button
+                    disabled={disabled}
+                    className="bg-[#bda069] text-white border-[#bda069]
+          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+                  >
+                    {actionLabel}
+                  </Button>
+                </AlertDialogTrigger>
+              )}
+            {actionLabel === "حذف الحجز" &&
+              reservation.status === "canceled" && (
+                <AlertDialogTrigger asChild>
+                  <Button
+                    disabled={disabled}
+                    className="bg-[#bda069] text-white border-[#bda069]
+          hover:text-[#bda069] hover:bg-[white] hover:border-[1px] transition duration-300 font-bold"
+                  >
+                    {actionLabel}
+                  </Button>
+                </AlertDialogTrigger>
+              )}
             <AlertDialogContent
               dir="rtl"
               className="flex flex-col items-start rounded-md"
@@ -312,6 +403,11 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   {actionLabel === "الغاء الحجز" && (
                     <div>
                       <h1> هل انت متاكد بالغاء هذا الحجز ؟</h1>
+                    </div>
+                  )}
+                  {actionLabel === "حذف الحجز" && (
+                    <div>
+                      <h1> هل انت متاكد من حذف هذا الحجز ؟</h1>
                     </div>
                   )}
                   {actionLabel === "الغاء رحلتي" && (
@@ -328,10 +424,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
                     "هذه العملية لا يمكن ارجاعها وسيتم حذف جميع الحجوزات المرتبطه بهذا الشاليه"}
                 </AlertDialogDescription>
               </AlertDialogHeader>
-              {(actionLabel === "الغاء الحجز" ||
-                actionLabel === "قم بحذف الشاليه") && (
+              {actionLabel === "الغاء الحجز" && (
                 <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
                   <AlertDialogAction onClick={handleCancel}>
+                    تاكيد
+                  </AlertDialogAction>
+                  <AlertDialogCancel>الغاء</AlertDialogCancel>
+                </AlertDialogFooter>
+              )}
+              {actionLabel === "حذف الحجز" && (
+                <AlertDialogFooter className="gap-3 flex justify-center items-center max-md:flex-col max-md:items-start w-full">
+                  <AlertDialogAction onClick={handleDelete}>
                     تاكيد
                   </AlertDialogAction>
                   <AlertDialogCancel>الغاء</AlertDialogCancel>
