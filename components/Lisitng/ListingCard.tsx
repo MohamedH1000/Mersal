@@ -7,7 +7,6 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import HeartButton from "./HeartButton";
 import { motion } from "framer-motion";
-import "./listings.css";
 import {
   AlertDialog,
   AlertDialogAction,
