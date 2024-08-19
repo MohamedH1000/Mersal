@@ -41,7 +41,7 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
     };
 
     fetchReservations();
-  }, [listingId]);
+  }, [listingId, router, deleteId, confirmedId]);
   const reservations = allReservations?.filter(
     (reservation: any) => reservation.status !== "canceled"
   );
@@ -56,7 +56,7 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
           title: "تم الغاء الحجز ",
           className: "bg-[green] text-white",
         });
-        window.location.reload();
+        router.refresh();
       } catch (error) {
         toast({
           title: "حدثت مشكلة اثناء الغاء الحجز",
@@ -77,7 +77,7 @@ const ReservationClient: React.FC<ReservationClientProps> = ({
           title: "تم تاكيد الحجز",
           className: "bg-[green] text-white",
         });
-        window.location.reload();
+        router.refresh();
       } catch (error) {
         toast({
           title: "حدثت مشكلة اثناء تاكيد الحجز",

@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/action/user.action";
 import { getReservations } from "@/lib/action/reservations.action";
 import ReservationClient from "./ReservationClient";
 import { getAllChalets } from "@/lib/action/chalet.action";
+export const revalidate = 0;
 
 const page = async () => {
   const currentUser = await getCurrentUser();
