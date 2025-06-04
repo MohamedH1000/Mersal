@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { CircularProgress } from "@mui/material";
 import { FcGoogle } from "react-icons/fc";
-import { error } from "console";
 
 const Login = () => {
   const router = useRouter();

@@ -31,7 +31,7 @@ const AddChaletDialog = ({ currentUser }: any) => {
     description: "",
     title: "",
   });
-  // console.log("chalet details", chaletDetails);
+  console.log("chalet details", chaletDetails);
   if (currentUser?.role !== "admin") router.push("/");
   const clear = () => {
     setChaletDetails({

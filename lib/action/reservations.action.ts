@@ -3,7 +3,6 @@ import prisma from "@/lib/prisma";
 import { getCurrentUser } from "./user.action";
 import { Resend } from "resend";
 import EmailTemplate from "@/components/EmailTemplate/EmailTemplate";
-import twilio from "twilio";
 import { revalidatePath } from "next/cache";
 
 export async function createReservation(params: any) {

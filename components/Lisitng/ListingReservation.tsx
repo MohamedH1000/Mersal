@@ -7,6 +7,8 @@ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
 import PhoneInput from "react-phone-number-input";
+import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
+
 import "react-phone-number-input/style.css";
 import {
   AlertDialog,
@@ -66,11 +68,9 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <div className="font-light text-neutral-600">لكل ليلة</div>
       </div>
       <Separator />
-      <Calender
-        value={dateRange}
-        disabledDates={disableDates}
-        onChange={(value) => onChangeDate(value.selection)}
-      />
+      <DemoItem label="1 calendar">
+        <DateRangeCalendar calendars={1} />
+      </DemoItem>
       {!currentUser ? (
         <>
           <Separator />
