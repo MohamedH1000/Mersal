@@ -14,6 +14,7 @@ const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
   key: "selection",
+  color: "#bda069", // Add this property
 };
 interface ListingClientProps {
   reservations?: Reservation[] | any;
@@ -126,7 +127,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
   // console.log("here is the total price", totalPrice);
 
   useEffect(() => {
-    if (dateRange.startDate && dateRange.endDate) {
+    if (dateRange?.startDate && dateRange?.endDate) {
       const dayCount =
         differenceInCalendarDays(dateRange.endDate, dateRange.startDate) + 1;
 
@@ -185,7 +186,7 @@ const IndividualListing: React.FC<ListingClientProps> = ({
               isLoading={isLoading}
               price={listing.price}
               totalPrice={totalPrice}
-              onChangeDate={(value) => setDateRange(value)}
+              onChangeDate={(range: Range) => setDateRange(range)}
               dateRange={dateRange}
               onSubmit={onCreateReservation}
               disabled={isLoading}

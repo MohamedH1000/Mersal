@@ -2,13 +2,12 @@
 import { Range } from "react-date-range";
 
 import React, { Dispatch, SetStateAction } from "react";
-import Calender from "./Calender";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { motion } from "framer-motion";
 import PhoneInput from "react-phone-number-input";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css";
 import "react-phone-number-input/style.css";
 import {
   AlertDialog,
@@ -23,6 +22,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { User } from "@prisma/client";
 import { Input } from "../ui/input";
+import Calender from "./Calender";
 interface ListingReservationProps {
   price: number;
   dateRange: Range;
@@ -68,9 +68,11 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         <div className="font-light text-neutral-600">لكل ليلة</div>
       </div>
       <Separator />
-      <DemoItem label="1 calendar">
-        <DateRangeCalendar calendars={1} />
-      </DemoItem>
+      <Calender
+        value={dateRange}
+        onChange={(ranges) => onChangeDate(ranges.selection)}
+        disabledDates={disableDates}
+      />
       {!currentUser ? (
         <>
           <Separator />
