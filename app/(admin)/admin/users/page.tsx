@@ -102,7 +102,7 @@ export default function UsersPage() {
           {
             header: "الدور",
             accessor: "role",
-            render: (value) => (value === "ADMIN" ? "مدير" : "مستخدم"),
+            render: (value) => (value === "admin" ? "مدير" : "مستخدم"),
           },
           { header: "تاريخ التسجيل", accessor: "createdAt" },
           { header: "الإجراءات", accessor: "actions" },

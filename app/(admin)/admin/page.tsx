@@ -58,7 +58,7 @@ export default async function DashboardPage() {
             <thead>
               <tr className="bg-gray-100">
                 <th className="py-3 px-4 text-right">المستخدم</th>
-                <th className="py-3 px-4 text-right">العقار</th>
+                <th className="py-3 px-4 text-right">الشاليه</th>
                 <th className="py-3 px-4 text-right">التاريخ</th>
                 <th className="py-3 px-4 text-right">الحالة</th>
               </tr>
@@ -66,22 +66,26 @@ export default async function DashboardPage() {
             <tbody>
               {reservations.slice(0, 5).map((res) => (
                 <tr key={res.id} className="border-b">
-                  <td className="py-3 px-4">{res.userName}</td>
-                  <td className="py-3 px-4">{res.listingTitle}</td>
+                  <td className="py-3 px-4">{res?.user?.name}</td>
+                  <td className="py-3 px-4">{res?.listing?.title}</td>
                   <td className="py-3 px-4">
-                    {res.startDate} - {res.endDate}
+                    {res.startDate.split("T")[0]} - {res.endDate.split("T")[0]}
                   </td>
                   <td className="py-3 px-4">
                     <span
                       className={`px-2 py-1 rounded ${
-                        res.status === "مؤكد"
+                        res.status === "confirmed"
                           ? "bg-green-100 text-green-800"
-                          : res.status === "قيد الانتظار"
+                          : res.status === "pending"
                           ? "bg-yellow-100 text-yellow-800"
                           : "bg-red-100 text-red-800"
                       }`}
                     >
-                      {res.status}
+                      {res.status === "confirmed"
+                        ? "مؤكد"
+                        : res.status === "pending"
+                        ? "قيد الانتظار"
+                        : "ملغي"}
                     </span>
                   </td>
                 </tr>

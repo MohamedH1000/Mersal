@@ -1,13 +1,40 @@
 // components/admin/Topbar.tsx
 "use client";
 
-import { FaBars, FaBell, FaUser } from "react-icons/fa";
+import { User } from "@prisma/client";
+import { signOut } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import {
+  FaBars,
+  FaBell,
+  FaCaretDown,
+  FaSignOutAlt,
+  FaUser,
+} from "react-icons/fa";
 
 const Topbar = ({
   setSidebarOpen,
+  user,
 }: {
   setSidebarOpen: (isOpen: boolean) => void;
+  user: User;
 }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/sign-in" }); // Redirect to homepage after sign-out
+  };
   return (
     <header className="bg-white shadow">
       <div className="flex items-center justify-between px-4 py-3">
@@ -31,14 +58,46 @@ const Topbar = ({
             </span>
           </button> */}
 
-          <div className="flex items-center">
-            <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10 flex items-center justify-center">
-              <FaUser />
+          <div className="relative" ref={menuRef}>
+            <div
+              className="flex items-center cursor-pointer gap-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {/* User avatar */}
+              {user?.avatar ? (
+                <img
+                  src={user.avatar || ""}
+                  alt="User profile"
+                  className="w-10 h-10 rounded-full object-cover"
+                />
+              ) : (
+                <div className="bg-gray-200 border-2 border-dashed rounded-xl w-10 h-10 flex items-center justify-center">
+                  <FaUser />
+                </div>
+              )}
+
+              {/* User info */}
+              <div className="mr-2 hidden md:block">
+                <p className="font-medium">{user?.name || ""}</p>
+                <p className="text-sm text-gray-500">{user?.role || ""}</p>
+              </div>
+
+              <FaCaretDown className="text-gray-500" />
             </div>
-            <div className="mr-2 hidden md:block">
-              <p className="font-medium">مدير النظام</p>
-              <p className="text-sm text-gray-500">Admin</p>
-            </div>
+
+            {/* Dropdown menu */}
+            {isMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                <button
+                  onClick={handleSignOut}
+                  className="flex items-center w-full px-4 py-2 text-sm 
+                  text-gray-700 hover:bg-gray-100 gap-2"
+                >
+                  <FaSignOutAlt className="mr-3" />
+                  تسجيل الخروج
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

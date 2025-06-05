@@ -29,11 +29,19 @@ const Register = () => {
     setError("");
     try {
       setIsLoading(true);
-      await createUser(registerData);
-      toast({
-        title: "تم انشاء الحساب بنجاح",
-        className: "bg-[green] text-white",
-      });
+      const response = await createUser(registerData);
+      if (response.success) {
+        toast({
+          title: "تم انشاء الحساب بنجاح",
+          className: "bg-[green] text-white",
+        });
+      } else {
+        toast({
+          title: response.error,
+          className: "bg-[red] text-white",
+        });
+        return;
+      }
       const loginData = {
         email: registerData.email,
         password: registerData.password,

@@ -63,12 +63,12 @@ export default function UserForm({ user, onSubmit, onClose }: UserFormProps) {
             <label className="block text-gray-700 mb-2">الدور</label>
             <select
               name="role"
-              defaultValue={user?.role || "USER"}
+              defaultValue={user?.role || "user"}
               className="w-full px-3 py-2 border rounded"
               required
             >
-              <option value="ADMIN">مدير</option>
-              <option value="USER">مستخدم</option>
+              <option value="admin">مدير</option>
+              <option value="user">مستخدم</option>
             </select>
           </div>
 
