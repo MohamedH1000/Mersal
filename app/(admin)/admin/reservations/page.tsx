@@ -1,53 +1,91 @@
-// app/admin/reservations/page.tsx
-
+"use client";
+import {
+  deleteReservation,
+  getReservations,
+} from "@/lib/action/reservations.action";
 import DataTable from "../DataTable";
+import { useEffect, useState } from "react";
+import EditReservationModal from "./EditReservationModal";
 
+// Client component wrapper
+function ReservationActions({ reservationId }: { reservationId: any }) {
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  // console.log("Reservation", reservation);
+
+  const handleDelete = async () => {
+    if (confirm("هل أنت متأكد من حذف هذا الحجز؟")) {
+      setIsDeleting(true);
+      const result = await deleteReservation(reservationId);
+
+      if (result.success) {
+        window.location.reload();
+      } else {
+        alert(result.error);
+        setIsDeleting(false);
+      }
+    }
+  };
+
+  return (
+    <>
+      <div className="flex gap-2">
+        <button
+          onClick={() => setShowEditModal(true)}
+          className="text-[#bda069] hover:underline"
+        >
+          تعديل
+        </button>
+        <button
+          onClick={handleDelete}
+          disabled={isDeleting}
+          className="text-red-500 hover:underline disabled:opacity-50"
+        >
+          {isDeleting ? "جاري الحذف..." : "حذف"}
+        </button>
+      </div>
+
+      {showEditModal && (
+        <EditReservationModal
+          reservationId={reservationId}
+          onClose={() => setShowEditModal(false)}
+        />
+      )}
+    </>
+  );
+}
+
+// Main page component
 export default function ReservationsPage() {
-  const reservations = [
-    {
-      id: "1",
-      userName: "عمر أحمد",
-      listingTitle: "شاليه جبل علي",
-      startDate: "2023-12-15",
-      endDate: "2023-12-18",
-      totalPrice: 3600,
-      status: "مؤكد",
-    },
-    {
-      id: "2",
-      userName: "سارة محمد",
-      listingTitle: "فيلا الريف",
-      startDate: "2023-12-20",
-      endDate: "2023-12-25",
-      totalPrice: 12500,
-      status: "مؤكد",
-    },
-    {
-      id: "3",
-      userName: "خالد حسن",
-      listingTitle: "شاليه الكورنيش",
-      startDate: "2024-01-05",
-      endDate: "2024-01-07",
-      totalPrice: 3600,
-      status: "قيد الانتظار",
-    },
-    {
-      id: "4",
-      userName: "نورا عبدالله",
-      listingTitle: "شاليه الغروب",
-      startDate: "2023-12-22",
-      endDate: "2023-12-24",
-      totalPrice: 3000,
-      status: "ملغي",
-    },
-  ];
+  const [reservations, setReservations] = useState([]);
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      const reservations: any = await getReservations({});
+      // const serializedReservations = reservations.map((res:any) => ({
+      //   ...res,
+      //   startDate: res?.startDate?.toISOString(),
+      //   endDate: res?.endDate?.toISOString(),
+      // }));
+      setReservations(reservations);
+    };
+    fetchReservations();
+  }, []);
 
   return (
     <DataTable
       title="إدارة الحجوزات"
       columns={[
-        { header: "المستخدم", accessor: "userName" },
-        { header: "العقار", accessor: "listingTitle" },
+        {
+          header: "المستخدم",
+          accessor: "user",
+          render: (user) => user?.name || "غير معرف",
+        },
+        {
+          header: "العقار",
+          accessor: "listing",
+          render: (listing) => listing?.title,
+        },
         { header: "من", accessor: "startDate" },
         { header: "إلى", accessor: "endDate" },
         {
@@ -56,16 +94,13 @@ export default function ReservationsPage() {
           render: (value) => `${value} درهم`,
         },
         { header: "الحالة", accessor: "status" },
-        { header: "الإجراءات", accessor: "actions" },
+        {
+          header: "الإجراءات",
+          accessor: "actions",
+          render: (id) => <ReservationActions reservationId={id} />,
+        },
       ]}
-      data={reservations.map((res) => ({
-        ...res,
-        actions: (
-          <div className="flex gap-2">
-            <button className="text-[#bda069] hover:underline">تعديل</button>
-          </div>
-        ),
-      }))}
+      data={reservations}
     />
   );
 }

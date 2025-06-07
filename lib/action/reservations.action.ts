@@ -102,6 +102,7 @@ export async function sendEmail(params: any) {
     console.log(error);
   }
 }
+
 export async function sendSMS(params: any) {
   const accountSid = process.env.ACCOUNT_ID;
   const authToken = process.env.AUTH_TOKEN;
@@ -132,6 +133,7 @@ export async function sendSMS(params: any) {
     };
   }
 }
+
 export async function getReservations(params: any) {
   try {
     const { listingId, userId, authorId, phoneNumber } = params;
@@ -208,7 +210,7 @@ export async function cancelReservation(params: any) {
 export async function deleteReservation(params: any) {
   const currentUser = await getCurrentUser();
 
-  if (currentUser.role !== "admin") {
+  if (currentUser?.role !== "admin") {
     throw new Error("هذه العملية خاصة بالادمن فقط");
   }
 
@@ -224,7 +226,7 @@ export async function deleteReservation(params: any) {
     },
   });
 
-  return reservation;
+  return { success: true, data: reservation };
 }
 
 export async function confirmReservation(params: any) {
@@ -251,3 +253,15 @@ export async function confirmReservation(params: any) {
   revalidatePath("/reservation/all-reservations");
   return reservation;
 }
+
+export const updateReservation = async (id: string, data: any) => {
+  try {
+    await prisma.reservation.update({
+      where: { id },
+      data,
+    });
+    return { success: true };
+  } catch (error) {
+    return { success: false, error };
+  }
+};

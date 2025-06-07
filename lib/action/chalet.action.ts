@@ -116,6 +116,32 @@ export async function getChaletById(params: any) {
     throw new Error(error);
   }
 }
+export async function getListingById(id: any) {
+  try {
+    const listing = await prisma.listing.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user: true,
+      },
+    });
+    if (!listing) return null;
+
+    return {
+      ...listing,
+      createdAt: listing?.createdAt.toISOString(),
+      user: {
+        ...listing?.user,
+        createdAt: listing?.user?.createdAt.toISOString(),
+        updatedAt: listing?.user?.updatedAt.toISOString(),
+        emailVerified: listing?.user?.emailVerified?.toISOString() || null,
+      },
+    };
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
 
 export async function removeChaletById(params: any) {
   const currentUser = await getCurrentUser();
@@ -137,6 +163,21 @@ export async function removeChaletById(params: any) {
   });
   return listing;
 }
+
+export const deleteListing = async (id: string) => {
+  try {
+    await prisma.listing.delete({
+      where: {
+        id: id,
+      },
+    });
+    revalidatePath("/admin/listings");
+    return { success: true, message: "تم حذف الشالية بنجاح" };
+  } catch (error) {
+    console.error(error);
+    return { success: false, message: "حصل خطأ اثناء حذف الشاليه" };
+  }
+};
 
 export async function addToFavourite(params: any) {
   const currentUser = await getCurrentUser();
