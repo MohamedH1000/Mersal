@@ -54,35 +54,35 @@ const IndividualListing: React.FC<ListingClientProps> = ({
   const [email, setEmail] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const router = useRouter();
+  // console.log("currentUser", currentUser);
   // console.log(formatISO(dateRange.startDate));
 
   const onCreateReservation = useCallback(async () => {
     setIsLoading(true);
-    let response;
     try {
-      {
-        currentUser
-          ? (response = await createReservation({
-              totalPrice,
-              startDate: dateRange.startDate,
-              endDate: dateRange.endDate,
-              listingId: listing?.id,
-              servicePrice,
-              status: "pending",
-              phoneNumber,
-            }))
-          : (response = await createReservation({
-              totalPrice,
-              startDate: dateRange.startDate,
-              endDate: dateRange.endDate,
-              listingId: listing?.id,
-              nameOfReserver,
-              email,
-              status: "pending",
-              phoneNumber,
-              servicePrice,
-            }));
-      }
+      // {
+      //   currentUser
+      //     ? (response = await createReservation({
+      //         totalPrice,
+      //         startDate: dateRange.startDate,
+      //         endDate: dateRange.endDate,
+      //         listingId: listing?.id,
+      //         servicePrice,
+      //         status: "pending",
+      //         phoneNumber,
+      //       }))
+      //     : (response = await createReservation({
+      //         totalPrice,
+      //         startDate: dateRange.startDate,
+      //         endDate: dateRange.endDate,
+      //         listingId: listing?.id,
+      //         nameOfReserver,
+      //         email,
+      //         status: "pending",
+      //         phoneNumber,
+      //         servicePrice,
+      //       }));
+      // }
       // await sendEmail({
       //   startDate: dateRange.startDate,
       //   endDate: dateRange.endDate,
@@ -90,22 +90,36 @@ const IndividualListing: React.FC<ListingClientProps> = ({
       //   email,
       //   phoneNumber,
       // });
-      if (!response.success) {
-        throw new Error(response.message);
-      }
+      // if (!response.success) {
+      //   throw new Error(response.message);
+      // }
       // console.log(response);
-      toast({
-        title: "تم حجز الشاليه",
-        description:
-          "لمتابعة الحجز يمكنك الاستعلام عن الحجز من الشريط العلوي او للتعديل او الالغاء برجاء التواصل معنا عبر رقم الواتساب",
-        className: "bg-[#bda069] text-white",
+      // toast({
+      //   title: "تم حجز الشاليه",
+      //   description:
+      //     "لمتابعة الحجز يمكنك الاستعلام عن الحجز من الشريط العلوي او للتعديل او الالغاء برجاء التواصل معنا عبر رقم الواتساب",
+      //   className: "bg-[#bda069] text-white",
+      // });
+      // setDateRange(initialDateRange);
+      // router.refresh();
+      const res = await fetch("/api/create-tabby-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          totalPrice,
+          email: email || currentUser?.email,
+          phoneNumber,
+          nameOfReserver: nameOfReserver || currentUser?.name,
+        }),
       });
-      setDateRange(initialDateRange);
-      router.refresh();
+
+      const data = await res.json();
+      // This will now have data.paymentUrl (matches your current code!)
+      window.location.href = data.paymentUrl;
     } catch (error: any) {
       console.log(error);
       toast({
-        title: "حدث خطا اثناء حجز الشاليه",
+        title: "حدث خطا اثناء بدء الدفع",
         description: error.message,
         className: "bg-[red] text-white",
       });
